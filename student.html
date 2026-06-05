@@ -162,6 +162,16 @@
     'Финальный проект. Сертификат.'
   ];
 
+  const MODULE_GRADIENTS = [
+    'linear-gradient(135deg, rgba(20,60,80,0.95) 0%, rgba(10,30,50,0.98) 100%)',
+    'linear-gradient(135deg, rgba(30,50,90,0.95) 0%, rgba(10,20,60,0.98) 100%)',
+    'linear-gradient(135deg, rgba(20,70,70,0.95) 0%, rgba(5,35,50,0.98) 100%)',
+    'linear-gradient(135deg, rgba(50,30,80,0.95) 0%, rgba(20,10,50,0.98) 100%)',
+    'linear-gradient(135deg, rgba(60,40,20,0.95) 0%, rgba(30,15,5,0.98) 100%)',
+    'linear-gradient(135deg, rgba(20,60,40,0.95) 0%, rgba(5,30,20,0.98) 100%)',
+    'linear-gradient(135deg, rgba(60,20,40,0.95) 0%, rgba(30,5,20,0.98) 100%)',
+  ];
+
   function renderModules(unlocked) {
     const grid = document.getElementById('modulesGrid');
     if (!grid) return;
@@ -171,23 +181,26 @@
       const current = i === unlocked;
       const locked = i > unlocked;
       const full = i === 7 ? ' fu-mod-full' : '';
-      const pct = done ? 100 : current ? 10 : 0;
-      const lockIcon = locked ? '<div class="mod-lock-icon">🔒</div>' : '';
-      const doneIcon = done ? '<div class="mod-lock-icon" style="opacity:1;color:#4ecdc4">✓</div>' : '';
+      const pct = done ? 100 : current ? Math.round(((unlocked-1)/7)*100) : 0;
       const onclick = locked ? '' : `onclick="openCourse(${i})"`;
+      const statusBadge = done
+        ? `<div class="mod-status-badge done">✓ Завершён</div>`
+        : current
+        ? `<div class="mod-status-badge current">→ Текущий</div>`
+        : `<div class="mod-status-badge locked">🔒 Заблокирован</div>`;
       grid.innerHTML += `
-        <div class="fu-mod-card${locked ? ' fu-mod-locked' : ''}${full}" ${onclick}>
-          <div class="mod-bg" style="background-image:url('photo${i}.jpg')"></div>
-          <div class="mod-overlay"></div>
-          ${lockIcon}${doneIcon}
-          <div class="mod-content">
-            <div class="mod-num-badge">0${i}</div>
-            <div class="mod-title-card">${MODULE_NAMES[i-1]}</div>
-            <div class="mod-tags">${MODULE_TAGS[i-1]}</div>
+        <div class="fu-mod-card${locked ? ' fu-mod-locked' : ''}${done ? ' fu-mod-done' : ''}${full}" ${onclick} style="background:${MODULE_GRADIENTS[i-1]}">
+          <div class="mod-card-inner">
+            <div class="mod-top-row">
+              <div class="mod-num-fu">0${i}</div>
+              ${statusBadge}
+            </div>
+            <div class="mod-name-fu">${MODULE_NAMES[i-1]}</div>
+            <div class="mod-tags-fu">${MODULE_TAGS[i-1]}</div>
           </div>
-          <div class="mod-footer">
-            <div class="mod-prog-bar-wrap"><div class="mod-prog-bar" style="width:${pct}%"></div></div>
-            <div class="mod-prog-label">${done ? '100% — завершён' : current ? 'В процессе' : 'Заблокирован'}</div>
+          <div class="mod-card-footer">
+            <div class="mod-prog-wrap"><div class="mod-prog-fill" style="width:${pct}%"></div></div>
+            <div class="mod-prog-txt">${done ? '100%' : current ? pct+'%' : '0%'}</div>
           </div>
         </div>`;
     }
@@ -579,60 +592,38 @@
   .dash-section-title { font-size: 10px; letter-spacing: 0.3em; color: rgba(78,205,196,0.45); text-transform: uppercase; }
   .fu-modules-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
   .fu-mod-card {
-    position: relative; border-radius: 16px; overflow: hidden;
-    cursor: pointer; min-height: 260px;
+    border-radius: 16px; overflow: hidden; cursor: pointer;
     border: 1px solid rgba(78,205,196,0.2);
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    display: flex; flex-direction: column; justify-content: space-between;
+    display: flex; flex-direction: column; min-height: 200px;
   }
   .fu-mod-card:hover:not(.fu-mod-locked) {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(78,205,196,0.3);
     border-color: rgba(78,205,196,0.7);
   }
-  .mod-bg {
-    position: absolute; inset: 0;
-    background-size: cover; background-position: center;
-    transition: transform 0.4s;
+  .mod-card-inner { flex: 1; padding: 22px 22px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .mod-top-row { display: flex; align-items: center; justify-content: space-between; }
+  .mod-num-fu { font-size: 11px; color: rgba(78,205,196,0.5); font-family: monospace; letter-spacing: 0.1em; }
+  .mod-status-badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.08em; }
+  .mod-status-badge.done { background: rgba(78,205,196,0.15); color: #4ecdc4; border: 1px solid rgba(78,205,196,0.3); }
+  .mod-status-badge.current { background: rgba(115,236,255,0.12); color: #73ecff; border: 1px solid rgba(115,236,255,0.3); }
+  .mod-status-badge.locked { background: rgba(255,255,255,0.04); color: #3a5a68; border: 1px solid rgba(255,255,255,0.08); }
+  .mod-name-fu {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.2vw, 26px); font-weight: 300;
+    color: #c8d8e0; line-height: 1.2; letter-spacing: 0.02em;
   }
-  .fu-mod-card:hover:not(.fu-mod-locked) .mod-bg { transform: scale(1.05); }
-  .mod-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(4,10,18,0.55) 0%, rgba(4,10,18,0.15) 40%, rgba(4,10,18,0.85) 100%);
-  }
-  .mod-content {
-    position: relative; z-index: 2;
-    display: flex; flex-direction: column; height: 100%; padding: 18px 18px 0;
-  }
-  .mod-footer {
-    position: relative; z-index: 2;
-    padding: 12px 18px 16px;
-  }
-  .mod-title-card {
-    font-size: 15px; font-weight: 700; color: #fff;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    line-height: 1.25; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    margin-bottom: 6px;
-  }
-  .mod-tags {
-    font-size: 10px; color: rgba(200,220,230,0.6);
-    letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.5;
-  }
-  .mod-prog-bar-wrap { height: 3px; background: rgba(255,255,255,0.15); border-radius: 3px; margin-bottom: 4px; }
-  .mod-prog-bar { height: 3px; background: linear-gradient(to right,#4ecdc4,#73ecff); border-radius: 3px; box-shadow: 0 0 6px rgba(78,205,196,0.6); }
-  .mod-prog-label { font-size: 10px; color: rgba(78,205,196,0.8); letter-spacing: 0.1em; }
-  .mod-lock-icon { position: absolute; top: 14px; right: 14px; z-index: 3; font-size: 16px; opacity: 0.7; }
-  .mod-num-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 28px; height: 18px; border-radius: 4px;
-    background: rgba(78,205,196,0.15); border: 1px solid rgba(78,205,196,0.3);
-    font-size: 10px; color: rgba(78,205,196,0.8); font-family: monospace;
-    margin-bottom: 10px;
-  }
-
-  .fu-mod-card.fu-mod-locked { cursor: default; opacity: 0.45; }
-  .fu-mod-card.fu-mod-full { grid-column: 1 / -1; min-height: auto; }
-  .fu-mod-card.fu-mod-done { border-color: rgba(78,205,196,0.28); }
+  .mod-tags-fu { font-size: 10px; color: rgba(78,205,196,0.4); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.6; margin-top: auto; }
+  .mod-card-footer { padding: 10px 22px 16px; display: flex; align-items: center; gap: 10px; border-top: 1px solid rgba(78,205,196,0.08); }
+  .mod-prog-wrap { flex: 1; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+  .mod-prog-fill { height: 2px; background: linear-gradient(to right,#4ecdc4,#73ecff); border-radius: 2px; box-shadow: 0 0 6px rgba(78,205,196,0.5); transition: width 0.8s ease; }
+  .mod-prog-txt { font-size: 10px; color: rgba(78,205,196,0.5); font-family: monospace; white-space: nowrap; }
+  .fu-mod-card.fu-mod-locked { cursor: default; opacity: 0.4; }
+  .fu-mod-card.fu-mod-full { grid-column: 1 / -1; }
+  .fu-mod-card.fu-mod-full .mod-card-inner { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .fu-mod-card.fu-mod-full .mod-name-fu { font-size: clamp(20px, 2.5vw, 30px); }
+  .fu-mod-card.fu-mod-done { border-color: rgba(78,205,196,0.3); }
 
 
 
