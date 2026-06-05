@@ -174,16 +174,16 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
 <div class="overlay" id="helpOverlay" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="popup">
     <button class="popup-close" onclick="document.getElementById('helpOverlay').classList.remove('open')">✕</button>
-    <div class="popup-title">Нужна помощь?</div>
-    <p><strong style="color:#aaa">Мы всегда готовы помочь!</strong></p>
-    <h4>💬 По вопросам обучения и оплаты:</h4>
+    <div class="popup-title" data-i18n="help">Нужна помощь?</div>
+    <p><strong style="color:#aaa" data-i18n="helpReady">Мы всегда готовы помочь!</strong></p>
+    <h4 data-i18n="helpContact">💬 По вопросам обучения и оплаты:</h4>
     <p><a href="https://wa.me/971589300286">WhatsApp: +971 589 300 286</a><br>
        <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
     <div class="popup-divider"></div>
-    <h4>📸 Мы в соцсетях:</h4>
+    <h4 data-i18n="helpSocial">📸 Мы в соцсетях:</h4>
     <p><a href="https://instagram.com/alievkgz">@alievkgz</a></p>
     <div class="popup-divider"></div>
-    <div class="popup-meta">Обычное время ответа: 15–30 минут</div>
+    <div class="popup-meta" data-i18n="helpTime">Обычное время ответа: 15–30 минут</div>
   </div>
 </div>
 
@@ -192,66 +192,66 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
   <div class="popup">
     <button class="popup-close" onclick="document.getElementById('pricingOverlay').classList.remove('open')">✕</button>
     <div class="pricing-header">
-      <h2>Выберите тариф</h2>
-      <p>Единоразовая оплата — без подписки и сохранения данных карты</p>
+      <h2 data-i18n="pricingTitle">Выберите тариф</h2>
+      <p data-i18n="pricingSub">Единоразовая оплата — без подписки и сохранения данных карты</p>
     </div>
     <div class="pricing-grid">
       <!-- STANDARD -->
       <div class="plan-card">
         <div class="plan-name">Standard</div>
         <div class="plan-price">$105</div>
-        <div class="plan-desc">Всё необходимое для старта</div>
+        <div class="plan-desc" data-i18n="stdDesc">Всё необходимое для старта</div>
         <ul class="plan-features">
-          <li>Все 7 модулей курса</li>
-          <li>Доступ к урокам 24/7</li>
-          <li>Обновления курса</li>
-          <li>Доступ с телефона и компьютера</li>
-          <li>Сертификат о прохождении</li>
+          <li data-i18n="stdF1">Все 7 модулей курса</li>
+          <li data-i18n="stdF2">Доступ к урокам 24/7</li>
+          <li data-i18n="stdF3">Обновления курса</li>
+          <li data-i18n="stdF4">Доступ с телефона и компьютера</li>
+          <li data-i18n="stdF5">Сертификат о прохождении</li>
         </ul>
-        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Standard%20-%20%24105">Купить — $105</a>
+        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Standard%20-%20%24105" data-i18n="buyStd">Купить — $105</a>
       </div>
       <!-- PRO -->
       <div class="plan-card featured">
-        <div class="plan-badge">Популярный</div>
+        <div class="plan-badge" data-i18n="popular">Популярный</div>
         <div class="plan-name">Pro</div>
         <div class="plan-price">$205</div>
-        <div class="plan-desc">Максимальный результат</div>
+        <div class="plan-desc" data-i18n="proDesc">Максимальный результат</div>
         <ul class="plan-features">
-          <li>Всё из Standard</li>
-          <li>Проверка домашних заданий</li>
-          <li>Дополнительные AI-инструменты</li>
-          <li>Готовые промпты и шаблоны</li>
-          <li>Закрытый чат учеников</li>
-          <li>Приоритетная поддержка</li>
+          <li data-i18n="proF1">Всё из Standard</li>
+          <li data-i18n="proF2">Проверка домашних заданий</li>
+          <li data-i18n="proF3">Дополнительные AI-инструменты</li>
+          <li data-i18n="proF4">Готовые промпты и шаблоны</li>
+          <li data-i18n="proF5">Закрытый чат учеников</li>
+          <li data-i18n="proF6">Приоритетная поддержка</li>
         </ul>
-        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Pro%20-%20%24205">Купить — $205</a>
+        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Pro%20-%20%24205" data-i18n="buyPro">Купить — $205</a>
       </div>
       <!-- INDIVIDUAL -->
       <div class="plan-card">
         <div class="plan-name">Individual</div>
         <div class="plan-price">$500</div>
-        <div class="plan-desc">Персональный подход</div>
+        <div class="plan-desc" data-i18n="indDesc">Персональный подход</div>
         <ul class="plan-features">
-          <li>Всё из Pro</li>
-          <li>Индивидуальное сопровождение</li>
-          <li>Персональная консультация</li>
-          <li>Разбор проектов 1 на 1</li>
-          <li>Помощь в запуске первых заказов</li>
-          <li>Личный план развития в AI</li>
+          <li data-i18n="indF1">Всё из Pro</li>
+          <li data-i18n="indF2">Индивидуальное сопровождение</li>
+          <li data-i18n="indF3">Персональная консультация</li>
+          <li data-i18n="indF4">Разбор проектов 1 на 1</li>
+          <li data-i18n="indF5">Помощь в запуске первых заказов</li>
+          <li data-i18n="indF6">Личный план развития в AI</li>
         </ul>
-        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Individual%20-%20%24500">Купить — $500</a>
+        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Individual%20-%20%24500" data-i18n="buyInd">Купить — $500</a>
       </div>
     </div>
     <div class="payment-section">
-      <div class="payment-title">Способы оплаты</div>
+      <div class="payment-title" data-i18n="payTitle">Способы оплаты</div>
       <div class="payment-methods">
         <div class="pay-badge">💳 Visa</div>
         <div class="pay-badge">💳 Mastercard</div>
         <div class="pay-badge">🍎 Apple Pay</div>
         <div class="pay-badge">₮ USDT (TRC20)</div>
-        <div class="pay-badge wa">💬 Перевод через WhatsApp</div>
+        <div class="pay-badge wa" data-i18n="payWa">💬 Перевод через WhatsApp</div>
       </div>
-      <div class="pay-note">Разовая оплата — данные карты не сохраняются.<br>Для оплаты через перевод напишите нам в WhatsApp.</div>
+      <div class="pay-note" data-i18n="payNote">Разовая оплата — данные карты не сохраняются.<br>Для оплаты через перевод напишите нам в WhatsApp.</div>
     </div>
   </div>
 </div>
@@ -287,7 +287,7 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
     </div>
     <button id="soundBtn" onclick="toggleMusic()" style="margin-top:1.8rem;display:inline-flex;align-items:center;gap:8px;background:rgba(10,22,35,0.5);border:1px solid rgba(78,205,196,0.25);border-radius:30px;padding:8px 20px;cursor:pointer;color:rgba(78,205,196,0.7);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-family:inherit;transition:all 0.3s;backdrop-filter:blur(8px);">
       <span id="soundIcon" style="font-size:15px">🔇</span>
-      <span id="soundLabel">Включить звук</span>
+      <span id="soundLabel" data-i18n="soundOn">Включить звук</span>
     </button>
   </div>
   <div class="marquee-section">
@@ -419,7 +419,8 @@ function toggleMusic() {
     _music.play().then(() => {
       _playing = true;
       icon.textContent = '🔊';
-      label.textContent = 'Выключить звук';
+      label.setAttribute('data-i18n', 'soundOff');
+      label.textContent = (translations[localStorage.getItem('lang')||'ru']||translations.ru).soundOff;
       btn.style.color = 'rgba(78,205,196,1)';
       btn.style.borderColor = 'rgba(78,205,196,0.6)';
       let v = 0;
@@ -428,7 +429,8 @@ function toggleMusic() {
   } else {
     _playing = false;
     icon.textContent = '🔇';
-    label.textContent = 'Включить звук';
+    label.setAttribute('data-i18n', 'soundOn');
+    label.textContent = (translations[localStorage.getItem('lang')||'ru']||translations.ru).soundOn;
     btn.style.color = 'rgba(78,205,196,0.5)';
     btn.style.borderColor = 'rgba(78,205,196,0.25)';
     let v = _music.volume;
@@ -457,7 +459,15 @@ const translations = {
     mod4: 'Видео и анимация', mod5: 'Монтаж и обработка', mod6: 'Идеи и творчество', mod7: 'Итоги и следующий шаг',
     footerAbout: 'О платформе', oferta: 'Публичная оферта', privacy: 'Политика конфиденциальности',
     footerContacts: 'Контакты', footerSocial: 'Соцсети',
-    copyright: '© 2026 ALIEV AI Lab. Все права защищены.'
+    copyright: '© 2026 ALIEV AI Lab. Все права защищены.',
+    soundOn: 'Включить звук', soundOff: 'Выключить звук',
+    helpReady: 'Мы всегда готовы помочь!', helpContact: '💬 По вопросам обучения и оплаты:', helpSocial: '📸 Мы в соцсетях:', helpTime: 'Обычное время ответа: 15–30 минут',
+    pricingTitle: 'Выберите тариф', pricingSub: 'Единоразовая оплата — без подписки и сохранения данных карты',
+    popular: 'Популярный',
+    stdDesc: 'Всё необходимое для старта', stdF1: 'Все 7 модулей курса', stdF2: 'Доступ к урокам 24/7', stdF3: 'Обновления курса', stdF4: 'Доступ с телефона и компьютера', stdF5: 'Сертификат о прохождении', buyStd: 'Купить — $105',
+    proDesc: 'Максимальный результат', proF1: 'Всё из Standard', proF2: 'Проверка домашних заданий', proF3: 'Дополнительные AI-инструменты', proF4: 'Готовые промпты и шаблоны', proF5: 'Закрытый чат учеников', proF6: 'Приоритетная поддержка', buyPro: 'Купить — $205',
+    indDesc: 'Персональный подход', indF1: 'Всё из Pro', indF2: 'Индивидуальное сопровождение', indF3: 'Персональная консультация', indF4: 'Разбор проектов 1 на 1', indF5: 'Помощь в запуске первых заказов', indF6: 'Личный план развития в AI', buyInd: 'Купить — $500',
+    payTitle: 'Способы оплаты', payWa: '💬 Перевод через WhatsApp', payNote: 'Разовая оплата — данные карты не сохраняются.<br>Для оплаты через перевод напишите нам в WhatsApp.'
   },
   ky: {
     help: 'Жардам керекпи?', login: 'Кирүү',
@@ -478,7 +488,15 @@ const translations = {
     mod4: 'Видео жана анимация', mod5: 'Монтаж жана иштетүү', mod6: 'Идеялар жана чыгармачылык', mod7: 'Жыйынтыктар жана кийинки кадам',
     footerAbout: 'Платформа жөнүндө', oferta: 'Коомдук оферта', privacy: 'Купуялык саясаты',
     footerContacts: 'Байланыш', footerSocial: 'Социалдык тармактар',
-    copyright: '© 2026 ALIEV AI Lab. Бардык укуктар корголгон.'
+    copyright: '© 2026 ALIEV AI Lab. Бардык укуктар корголгон.',
+    soundOn: 'Үн күйгүзүү', soundOff: 'Үн өчүрүү',
+    helpReady: 'Биз дайыма жардам берүүгө даярбыз!', helpContact: '💬 Окуу жана төлөм боюнча:', helpSocial: '📸 Биз социалдык тармактарда:', helpTime: 'Жооп берүү убактысы: 15–30 мүнөт',
+    pricingTitle: 'Тариф тандаңыз', pricingSub: 'Бир жолку төлөм — жазылуу жана карта маалыматтарын сактоосуз',
+    popular: 'Популярдуу',
+    stdDesc: 'Башталышка керек болгондун баары', stdF1: 'Курстун 7 модулунун баары', stdF2: 'Сабактарга 24/7 кирүү', stdF3: 'Курс жаңыртуулары', stdF4: 'Телефон жана компьютерден кирүү', stdF5: 'Өтүү сертификаты', buyStd: 'Сатып алуу — $105',
+    proDesc: 'Максималдуу натыйжа', proF1: 'Standardдан баары', proF2: 'Үй тапшырмаларын текшерүү', proF3: 'Кошумча AI куралдары', proF4: 'Даяр промпттар жана шаблондор', proF5: 'Жабык окуучулар чаты', proF6: 'Артыкчылыктуу колдоо', buyPro: 'Сатып алуу — $205',
+    indDesc: 'Жекече мамиле', indF1: 'Proдон баары', indF2: 'Жекече коштоо', indF3: 'Жекече консультация', indF4: 'Долбоорлорду 1га1 талдоо', indF5: 'Биринчи буйрутмаларды ишке киргизүүдө жардам', indF6: 'AIда өнүгүүнүн жеке планы', buyInd: 'Сатып алуу — $500',
+    payTitle: 'Төлөм ыкмалары', payWa: '💬 WhatsApp аркылуу которуу', payNote: 'Бир жолку төлөм — карта маалыматтары сакталбайт.<br>Которуу аркылуу төлөм үчүн бизге WhatsAppка жазыңыз.'
   },
   en: {
     help: 'Need help?', login: 'Sign in',
@@ -499,7 +517,15 @@ const translations = {
     mod4: 'Video and animation', mod5: 'Editing and processing', mod6: 'Ideas and creativity', mod7: 'Results and next step',
     footerAbout: 'About', oferta: 'Public offer', privacy: 'Privacy policy',
     footerContacts: 'Contacts', footerSocial: 'Social media',
-    copyright: '© 2026 ALIEV AI Lab. All rights reserved.'
+    copyright: '© 2026 ALIEV AI Lab. All rights reserved.',
+    soundOn: 'Enable sound', soundOff: 'Disable sound',
+    helpReady: 'We are always ready to help!', helpContact: '💬 For questions about training and payment:', helpSocial: '📸 We are on social media:', helpTime: 'Usual response time: 15–30 minutes',
+    pricingTitle: 'Choose a plan', pricingSub: 'One-time payment — no subscription or card data stored',
+    popular: 'Popular',
+    stdDesc: 'Everything you need to start', stdF1: 'All 7 course modules', stdF2: 'Access to lessons 24/7', stdF3: 'Course updates', stdF4: 'Access from phone and computer', stdF5: 'Completion certificate', buyStd: 'Buy — $105',
+    proDesc: 'Maximum result', proF1: 'Everything from Standard', proF2: 'Homework review', proF3: 'Additional AI tools', proF4: 'Ready-made prompts and templates', proF5: 'Private student chat', proF6: 'Priority support', buyPro: 'Buy — $205',
+    indDesc: 'Personal approach', indF1: 'Everything from Pro', indF2: 'Individual mentoring', indF3: 'Personal consultation', indF4: 'Project review 1 on 1', indF5: 'Help launching first orders', indF6: 'Personal AI development plan', buyInd: 'Buy — $500',
+    payTitle: 'Payment methods', payWa: '💬 Transfer via WhatsApp', payNote: 'One-time payment — card data is not stored.<br>For payment via transfer, write to us on WhatsApp.'
   }
 };
 
