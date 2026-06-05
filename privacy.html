@@ -8,8 +8,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #060d14; color: #c0d0d8; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem; }
-.back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #4ecdc4; text-decoration: none; margin-bottom: 3rem; }
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; }
+.back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #4ecdc4; text-decoration: none; }
 .back:hover { color: #73ecff; }
+.lang-sw { display: flex; gap: 4px; }
+.lang-sw button { font-size: 11px; color: #555; background: none; border: 1px solid transparent; border-radius: 5px; padding: 4px 10px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.lang-sw button:hover { color: #aaa; }
+.lang-sw button.active { color: #73ecff; border-color: rgba(115,236,255,0.35); }
 h1 { font-size: 1.6rem; font-weight: 400; color: #fff; margin-bottom: 0.4rem; }
 .date { font-size: 12px; color: #3a5a68; margin-bottom: 3rem; }
 h2 { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: #4ecdc4; margin: 2.5rem 0 1rem; }
@@ -18,79 +23,188 @@ ul { padding-left: 1.4rem; margin-bottom: 0.8rem; }
 ul li { font-size: 14px; color: #7a9aaa; margin-bottom: 0.4rem; }
 .divider { height: 1px; background: rgba(78,205,196,0.1); margin: 2rem 0; }
 footer { margin-top: 4rem; font-size: 12px; color: #2a4a58; border-top: 1px solid rgba(78,205,196,0.08); padding-top: 1.5rem; }
+a { color: #4ecdc4; }
+a:hover { color: #73ecff; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="/">← На главную</a>
-  <h1>Политика конфиденциальности</h1>
-  <div class="date">Дата вступления в силу: 1 января 2026 года</div>
-
-  <h2>1. Общие положения</h2>
-  <p>Настоящая Политика конфиденциальности описывает, как ALIEV AI LAB собирает, использует и защищает персональные данные пользователей сайта alievacademy.com.</p>
-  <p>Используя наш сайт и сервисы, вы соглашаетесь с условиями настоящей Политики.</p>
-
-  <div class="divider"></div>
-
-  <h2>2. Какие данные мы собираем</h2>
-  <p>При использовании нашего сайта и сервисов мы можем собирать следующие данные:</p>
-  <ul>
-    <li>Имя и фамилия (при регистрации)</li>
-    <li>Адрес электронной почты</li>
-    <li>Номер телефона (при обращении через WhatsApp)</li>
-    <li>Данные об использовании сайта (страницы, время посещения)</li>
-  </ul>
-  <p>Мы не сохраняем данные банковских карт. Платёжные операции обрабатываются сторонними сервисами (Stripe) в соответствии с их политиками безопасности.</p>
-
-  <div class="divider"></div>
-
-  <h2>3. Как мы используем ваши данные</h2>
-  <ul>
-    <li>Предоставление доступа к курсу и учебным материалам</li>
-    <li>Отправка уведомлений об обновлениях курса</li>
-    <li>Ответы на ваши вопросы и техническая поддержка</li>
-    <li>Улучшение качества наших услуг</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>4. Передача данных третьим лицам</h2>
-  <p>Мы не продаём и не передаём ваши персональные данные третьим лицам, за исключением случаев:</p>
-  <ul>
-    <li>Требования законодательства</li>
-    <li>Обработки платежей через платёжные системы (Stripe)</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>5. Защита данных</h2>
-  <p>Мы принимаем все необходимые технические и организационные меры для защиты ваших персональных данных от несанкционированного доступа, изменения или уничтожения.</p>
-
-  <div class="divider"></div>
-
-  <h2>6. Ваши права</h2>
-  <p>Вы имеете право:</p>
-  <ul>
-    <li>Запросить информацию о хранящихся данных</li>
-    <li>Потребовать исправления неточных данных</li>
-    <li>Потребовать удаления ваших данных</li>
-    <li>Отозвать согласие на обработку данных</li>
-  </ul>
-  <p>Для реализации своих прав обратитесь: <a href="mailto:vashdrugdubai@gmail.com" style="color:#4ecdc4">vashdrugdubai@gmail.com</a></p>
-
-  <div class="divider"></div>
-
-  <h2>7. Cookies</h2>
-  <p>Наш сайт использует файлы cookies для улучшения работы сайта. Вы можете отключить cookies в настройках браузера, однако это может повлиять на работу некоторых функций сайта.</p>
-
-  <div class="divider"></div>
-
-  <h2>8. Контактные данные</h2>
-  <p>По вопросам конфиденциальности обращайтесь:</p>
-  <p>Email: <a href="mailto:vashdrugdubai@gmail.com" style="color:#4ecdc4">vashdrugdubai@gmail.com</a></p>
-  <p>WhatsApp: <a href="https://wa.me/971589300286" style="color:#4ecdc4">+971 589 300 286</a></p>
-
-  <footer>© 2026 ALIEV AI LAB. Все права защищены.</footer>
+  <div class="top-bar">
+    <a class="back" href="/" id="backLink">← На главную</a>
+    <div class="lang-sw">
+      <button class="active" onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('ky')">KY</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+  <div id="content"></div>
 </div>
+
+<script>
+const content = {
+  ru: {
+    back: '← На главную',
+    title: 'Политика конфиденциальности',
+    date: 'Дата вступления в силу: 1 января 2026 года',
+    body: `
+      <h2>1. Общие положения</h2>
+      <p>Настоящая Политика конфиденциальности описывает, как ALIEV AI LAB собирает, использует и защищает персональные данные пользователей.</p>
+      <p>Используя наш сайт и сервисы, вы соглашаетесь с условиями настоящей Политики.</p>
+      <div class="divider"></div>
+      <h2>2. Какие данные мы собираем</h2>
+      <ul>
+        <li>Имя и фамилия (при регистрации)</li>
+        <li>Адрес электронной почты</li>
+        <li>Номер телефона (при обращении через WhatsApp)</li>
+        <li>Данные об использовании сайта (страницы, время посещения)</li>
+      </ul>
+      <p>Мы не сохраняем данные банковских карт.</p>
+      <div class="divider"></div>
+      <h2>3. Как мы используем ваши данные</h2>
+      <ul>
+        <li>Предоставление доступа к курсу и учебным материалам</li>
+        <li>Отправка уведомлений об обновлениях курса</li>
+        <li>Ответы на ваши вопросы и техническая поддержка</li>
+        <li>Улучшение качества наших услуг</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>4. Передача данных третьим лицам</h2>
+      <p>Мы не продаём и не передаём ваши персональные данные третьим лицам, за исключением требований законодательства и обработки платежей.</p>
+      <div class="divider"></div>
+      <h2>5. Защита данных</h2>
+      <p>Мы принимаем все необходимые меры для защиты ваших персональных данных от несанкционированного доступа, изменения или уничтожения.</p>
+      <div class="divider"></div>
+      <h2>6. Ваши права</h2>
+      <ul>
+        <li>Запросить информацию о хранящихся данных</li>
+        <li>Потребовать исправления неточных данных</li>
+        <li>Потребовать удаления ваших данных</li>
+        <li>Отозвать согласие на обработку данных</li>
+      </ul>
+      <p>Для реализации прав: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <div class="divider"></div>
+      <h2>7. Cookies</h2>
+      <p>Наш сайт использует файлы cookies для улучшения работы сайта. Вы можете отключить cookies в настройках браузера.</p>
+      <div class="divider"></div>
+      <h2>8. Контактные данные</h2>
+      <p>Email: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/971589300286">+971 589 300 286</a></p>
+      <footer>© 2026 ALIEV AI LAB. Все права защищены.</footer>
+    `
+  },
+  ky: {
+    back: '← Башкы бетке',
+    title: 'Купуялык саясаты',
+    date: 'Күчүнө кирген күнү: 2026-жылдын 1-январы',
+    body: `
+      <h2>1. Жалпы жоболор</h2>
+      <p>Бул Купуялык саясаты ALIEV AI LAB колдонуучулардын жеке маалыматтарын кандай чогултарын, колдонорун жана коргоорун сүрөттөйт.</p>
+      <p>Биздин сайтты жана кызматтарды колдонуу менен сиз ушул Саясаттын шарттарына макулдашасыз.</p>
+      <div class="divider"></div>
+      <h2>2. Биз кандай маалыматтарды чогултабыз</h2>
+      <ul>
+        <li>Ат жана фамилия (катталганда)</li>
+        <li>Электрондук почтанын дареги</li>
+        <li>Телефон номери (WhatsApp аркылуу кайрылганда)</li>
+        <li>Сайтты колдонуу боюнча маалыматтар</li>
+      </ul>
+      <p>Биз банк карталарынын маалыматтарын сакталбайбыз.</p>
+      <div class="divider"></div>
+      <h2>3. Биз маалыматтарыңызды кантип колдонобуз</h2>
+      <ul>
+        <li>Курска жана окуу материалдарына кирүү мүмкүнчүлүгүн берүү</li>
+        <li>Курс жаңыртуулары жөнүндө билдирмелер жөнөтүү</li>
+        <li>Суроолоруңузга жооп берүү жана техникалык колдоо</li>
+        <li>Кызматтарыбыздын сапатын жакшыртуу</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>4. Маалыматтарды үчүнчү жактарга өткөрүп берүү</h2>
+      <p>Биз мыйзамдын талаптарынан жана төлөмдөрдү иштетүүдөн башка учурларда жеке маалыматтарыңызды үчүнчү жактарга сатпайбыз жана өткөрбөйбүз.</p>
+      <div class="divider"></div>
+      <h2>5. Маалыматтарды коргоо</h2>
+      <p>Биз жеке маалыматтарыңызды уруксатсыз кирүүдөн, өзгөртүүдөн же жок кылуудан коргоо үчүн бардык керектүү чараларды көрөбүз.</p>
+      <div class="divider"></div>
+      <h2>6. Сиздин укуктарыңыз</h2>
+      <ul>
+        <li>Сакталган маалыматтар жөнүндө маалымат сурануу</li>
+        <li>Так эмес маалыматтарды оңдоону талап кылуу</li>
+        <li>Маалыматтарыңызды жок кылуунун талап кылуу</li>
+        <li>Маалыматтарды иштетүүгө макулдугуңузду кайтарып алуу</li>
+      </ul>
+      <p>Укуктарды жүзөгө ашыруу үчүн: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <div class="divider"></div>
+      <h2>7. Cookies</h2>
+      <p>Биздин сайт сайттын иштешин жакшыртуу үчүн cookies файлдарын колдонот. Cookies браузердин жөндөөлөрүнөн өчүрүлүшү мүмкүн.</p>
+      <div class="divider"></div>
+      <h2>8. Байланыш маалыматтары</h2>
+      <p>Email: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/971589300286">+971 589 300 286</a></p>
+      <footer>© 2026 ALIEV AI LAB. Бардык укуктар корголгон.</footer>
+    `
+  },
+  en: {
+    back: '← Back to main',
+    title: 'Privacy Policy',
+    date: 'Effective date: January 1, 2026',
+    body: `
+      <h2>1. General provisions</h2>
+      <p>This Privacy Policy describes how ALIEV AI LAB collects, uses and protects the personal data of users.</p>
+      <p>By using our site and services, you agree to the terms of this Policy.</p>
+      <div class="divider"></div>
+      <h2>2. What data we collect</h2>
+      <ul>
+        <li>First and last name (upon registration)</li>
+        <li>Email address</li>
+        <li>Phone number (when contacting via WhatsApp)</li>
+        <li>Website usage data (pages, visit time)</li>
+      </ul>
+      <p>We do not store bank card data.</p>
+      <div class="divider"></div>
+      <h2>3. How we use your data</h2>
+      <ul>
+        <li>Providing access to the course and study materials</li>
+        <li>Sending notifications about course updates</li>
+        <li>Answering your questions and technical support</li>
+        <li>Improving the quality of our services</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>4. Transfer of data to third parties</h2>
+      <p>We do not sell or transfer your personal data to third parties, except as required by law and payment processing.</p>
+      <div class="divider"></div>
+      <h2>5. Data protection</h2>
+      <p>We take all necessary measures to protect your personal data from unauthorized access, modification or destruction.</p>
+      <div class="divider"></div>
+      <h2>6. Your rights</h2>
+      <ul>
+        <li>Request information about stored data</li>
+        <li>Demand correction of inaccurate data</li>
+        <li>Demand deletion of your data</li>
+        <li>Withdraw consent to data processing</li>
+      </ul>
+      <p>To exercise your rights: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <div class="divider"></div>
+      <h2>7. Cookies</h2>
+      <p>Our site uses cookies to improve site performance. You can disable cookies in your browser settings.</p>
+      <div class="divider"></div>
+      <h2>8. Contact information</h2>
+      <p>Email: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/971589300286">+971 589 300 286</a></p>
+      <footer>© 2026 ALIEV AI LAB. All rights reserved.</footer>
+    `
+  }
+};
+
+function setLang(lang) {
+  const t = content[lang];
+  document.getElementById('backLink').textContent = t.back;
+  document.getElementById('content').innerHTML = `<h1>${t.title}</h1><div class="date">${t.date}</div>${t.body}`;
+  document.querySelectorAll('.lang-sw button').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-sw button[onclick="setLang('${lang}')"]`).classList.add('active');
+  localStorage.setItem('lang', lang);
+}
+
+const saved = localStorage.getItem('lang') || 'ru';
+setLang(saved);
+</script>
 </body>
 </html>

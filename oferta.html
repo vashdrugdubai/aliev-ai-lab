@@ -8,8 +8,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #060d14; color: #c0d0d8; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; line-height: 1.8; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 4rem 2rem; }
-.back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #4ecdc4; text-decoration: none; margin-bottom: 3rem; }
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; }
+.back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #4ecdc4; text-decoration: none; }
 .back:hover { color: #73ecff; }
+.lang-sw { display: flex; gap: 4px; }
+.lang-sw button { font-size: 11px; color: #555; background: none; border: 1px solid transparent; border-radius: 5px; padding: 4px 10px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.lang-sw button:hover { color: #aaa; }
+.lang-sw button.active { color: #73ecff; border-color: rgba(115,236,255,0.35); }
 h1 { font-size: 1.6rem; font-weight: 400; color: #fff; margin-bottom: 0.4rem; }
 .date { font-size: 12px; color: #3a5a68; margin-bottom: 3rem; }
 h2 { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: #4ecdc4; margin: 2.5rem 0 1rem; }
@@ -18,78 +23,213 @@ ul { padding-left: 1.4rem; margin-bottom: 0.8rem; }
 ul li { font-size: 14px; color: #7a9aaa; margin-bottom: 0.4rem; }
 .divider { height: 1px; background: rgba(78,205,196,0.1); margin: 2rem 0; }
 footer { margin-top: 4rem; font-size: 12px; color: #2a4a58; border-top: 1px solid rgba(78,205,196,0.08); padding-top: 1.5rem; }
+a { color: #4ecdc4; }
+a:hover { color: #73ecff; }
+strong { color: #aaa; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="/">← На главную</a>
-  <h1>Публичная оферта</h1>
-  <div class="date">Дата вступления в силу: 1 января 2026 года</div>
-
-  <h2>1. Общие положения</h2>
-  <p>Настоящий документ является публичной офертой ALIEV AI LAB (далее — «Исполнитель») и содержит все существенные условия договора об оказании образовательных услуг в дистанционном формате.</p>
-  <p>Акцептом настоящей оферты является факт оплаты услуг Исполнителя. С момента оплаты договор считается заключённым на условиях, изложенных в настоящей оферте.</p>
-
-  <div class="divider"></div>
-
-  <h2>2. Предмет договора</h2>
-  <p>Исполнитель обязуется предоставить Заказчику доступ к онлайн-курсу «ALIEV AI LAB» — образовательной программе по созданию контента с использованием инструментов искусственного интеллекта.</p>
-  <p>Курс включает:</p>
-  <ul>
-    <li>7 обучающих модулей в видеоформате</li>
-    <li>Учебные материалы, промпты и шаблоны (в зависимости от тарифа)</li>
-    <li>Доступ к закрытому сообществу учеников (в тарифах Pro и Individual)</li>
-    <li>Сертификат о прохождении курса</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>3. Стоимость и порядок оплаты</h2>
-  <p>Стоимость услуг определяется выбранным тарифом:</p>
-  <ul>
-    <li>Standard — 105 USD</li>
-    <li>Pro — 205 USD</li>
-    <li>Individual — 500 USD</li>
-  </ul>
-  <p>Оплата производится единовременно в полном объёме до начала обучения. Доступные способы оплаты: банковская карта (Visa, Mastercard), Apple Pay, USDT (TRC20), банковский перевод через WhatsApp.</p>
-  <p>Данные банковской карты не сохраняются Исполнителем.</p>
-
-  <div class="divider"></div>
-
-  <h2>4. Права и обязанности сторон</h2>
-  <p><strong style="color:#aaa">Исполнитель обязуется:</strong></p>
-  <ul>
-    <li>Предоставить доступ к курсу в течение 24 часов после подтверждения оплаты</li>
-    <li>Обеспечить круглосуточный доступ к учебным материалам</li>
-    <li>Отвечать на вопросы Заказчика в срок до 30 минут в рабочее время</li>
-    <li>Выдать сертификат после завершения курса</li>
-  </ul>
-  <p><strong style="color:#aaa">Заказчик обязуется:</strong></p>
-  <ul>
-    <li>Не распространять материалы курса третьим лицам</li>
-    <li>Не копировать и не воспроизводить контент курса в коммерческих целях</li>
-    <li>Использовать полученные знания в законных целях</li>
-  </ul>
-
-  <div class="divider"></div>
-
-  <h2>5. Возврат средств</h2>
-  <p>Возврат денежных средств возможен в течение 3 дней с момента оплаты при условии, что Заказчик не просмотрел более 2 уроков курса.</p>
-  <p>Для оформления возврата необходимо обратиться по адресу: <a href="mailto:vashdrugdubai@gmail.com" style="color:#4ecdc4">vashdrugdubai@gmail.com</a></p>
-
-  <div class="divider"></div>
-
-  <h2>6. Интеллектуальная собственность</h2>
-  <p>Все материалы курса являются интеллектуальной собственностью ALIEV AI LAB. Любое копирование, распространение или воспроизведение материалов без письменного разрешения Исполнителя запрещено.</p>
-
-  <div class="divider"></div>
-
-  <h2>7. Контактные данные</h2>
-  <p>Email: <a href="mailto:vashdrugdubai@gmail.com" style="color:#4ecdc4">vashdrugdubai@gmail.com</a></p>
-  <p>WhatsApp: <a href="https://wa.me/971589300286" style="color:#4ecdc4">+971 589 300 286</a></p>
-  <p>Instagram: <a href="https://instagram.com/alievkgz" style="color:#4ecdc4">@alievkgz</a></p>
-
-  <footer>© 2026 ALIEV AI LAB. Все права защищены.</footer>
+  <div class="top-bar">
+    <a class="back" href="/" id="backLink">← На главную</a>
+    <div class="lang-sw">
+      <button class="active" onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('ky')">KY</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+  <div id="content"></div>
 </div>
+
+<script>
+const content = {
+  ru: {
+    back: '← На главную',
+    title: 'Публичная оферта',
+    date: 'Дата вступления в силу: 1 января 2026 года',
+    body: `
+      <h2>1. Общие положения</h2>
+      <p>Настоящий документ является публичной офертой ALIEV AI LAB (далее — «Исполнитель») и содержит все существенные условия договора об оказании образовательных услуг в дистанционном формате.</p>
+      <p>Акцептом настоящей оферты является факт оплаты услуг Исполнителя. С момента оплаты договор считается заключённым на условиях, изложенных в настоящей оферте.</p>
+      <div class="divider"></div>
+      <h2>2. Предмет договора</h2>
+      <p>Исполнитель обязуется предоставить Заказчику доступ к онлайн-курсу «ALIEV AI LAB» — образовательной программе по созданию контента с использованием инструментов искусственного интеллекта.</p>
+      <p>Курс включает:</p>
+      <ul>
+        <li>7 обучающих модулей в видеоформате</li>
+        <li>Учебные материалы, промпты и шаблоны (в зависимости от тарифа)</li>
+        <li>Доступ к закрытому сообществу учеников (в тарифах Pro и Individual)</li>
+        <li>Сертификат о прохождении курса</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>3. Стоимость и порядок оплаты</h2>
+      <p>Стоимость услуг определяется выбранным тарифом:</p>
+      <ul>
+        <li>Standard — 105 USD</li>
+        <li>Pro — 205 USD</li>
+        <li>Individual — 500 USD</li>
+      </ul>
+      <p>Оплата производится единовременно в полном объёме до начала обучения. Доступные способы оплаты: банковская карта (Visa, Mastercard), Apple Pay, USDT (TRC20), банковский перевод через WhatsApp.</p>
+      <p>Данные банковской карты не сохраняются Исполнителем.</p>
+      <div class="divider"></div>
+      <h2>4. Права и обязанности сторон</h2>
+      <p><strong>Исполнитель обязуется:</strong></p>
+      <ul>
+        <li>Предоставить доступ к курсу в течение 24 часов после подтверждения оплаты</li>
+        <li>Обеспечить круглосуточный доступ к учебным материалам</li>
+        <li>Отвечать на вопросы Заказчика в срок до 30 минут в рабочее время</li>
+        <li>Выдать сертификат после завершения курса</li>
+      </ul>
+      <p><strong>Заказчик обязуется:</strong></p>
+      <ul>
+        <li>Не распространять материалы курса третьим лицам</li>
+        <li>Не копировать и не воспроизводить контент курса в коммерческих целях</li>
+        <li>Использовать полученные знания в законных целях</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>5. Возврат средств</h2>
+      <p>Возврат денежных средств возможен в течение 3 дней с момента оплаты при условии, что Заказчик не просмотрел более 2 уроков курса.</p>
+      <p>Для оформления возврата: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <div class="divider"></div>
+      <h2>6. Интеллектуальная собственность</h2>
+      <p>Все материалы курса являются интеллектуальной собственностью ALIEV AI LAB. Любое копирование, распространение или воспроизведение материалов без письменного разрешения Исполнителя запрещено.</p>
+      <div class="divider"></div>
+      <h2>7. Контактные данные</h2>
+      <p>Email: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/971589300286">+971 589 300 286</a></p>
+      <p>Instagram: <a href="https://instagram.com/alievkgz">@alievkgz</a></p>
+      <footer>© 2026 ALIEV AI LAB. Все права защищены.</footer>
+    `
+  },
+  ky: {
+    back: '← Башкы бетке',
+    title: 'Коомдук оферта',
+    date: 'Күчүнө кирген күнү: 2026-жылдын 1-январы',
+    body: `
+      <h2>1. Жалпы жоболор</h2>
+      <p>Бул документ ALIEV AI LAB (мындан ары — «Аткаруучу») коомдук офертасы болуп саналат жана алыстан билим берүү кызматтарын көрсөтүү боюнча келишимдин бардык маанилүү шарттарын камтыйт.</p>
+      <p>Офертаны кабыл алуу Аткаруучунун кызматтарына төлөм факты болуп саналат. Төлөм учуруnan бастап, келишим ушул офертада баяндалган шарттарда түзүлгөн деп эсептелет.</p>
+      <div class="divider"></div>
+      <h2>2. Келишимдин предмети</h2>
+      <p>Аткаруучу Буйрутмачыга «ALIEV AI LAB» онлайн курсуна — жасалма интеллект куралдарын колдонуу менен контент жаратуу боюнча билим берүү программасына — кирүү мүмкүнчүлүгүн берүүгө милдеттенет.</p>
+      <p>Курс камтыйт:</p>
+      <ul>
+        <li>Видеоформатта 7 окуу модулу</li>
+        <li>Окуу материалдары, промпттар жана шаблондор (тарифке жараша)</li>
+        <li>Жабык окуучулар коомчулугуна кирүү (Pro жана Individual тарифтеринде)</li>
+        <li>Курсту бүтүргөндүгү тууралуу сертификат</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>3. Наркы жана төлөм тартиби</h2>
+      <p>Кызматтардын наркы тандалган тарифке жараша аныкталат:</p>
+      <ul>
+        <li>Standard — 105 USD</li>
+        <li>Pro — 205 USD</li>
+        <li>Individual — 500 USD</li>
+      </ul>
+      <p>Төлөм окутуу башталганга чейин бир жолу толук өлчөмдө жүргүзүлөт. Жеткиликтүү төлөм ыкмалары: банк картасы (Visa, Mastercard), Apple Pay, USDT (TRC20), WhatsApp аркылуу банк которуу.</p>
+      <p>Банк картасынын маалыматтары Аткаруучу тарабынан сакталбайт.</p>
+      <div class="divider"></div>
+      <h2>4. Тараптардын укуктары жана милдеттери</h2>
+      <p><strong>Аткаруучу милдеттенет:</strong></p>
+      <ul>
+        <li>Төлөм ырасталгандан кийин 24 саат ичинде курска кирүү мүмкүнчүлүгүн берүүгө</li>
+        <li>Окуу материалдарына тогуз жолу кирүү мүмкүнчүлүгүн камсыз кылууга</li>
+        <li>Иш убактысында Буйрутмачынын суроолоруна 30 мүнөт ичинде жооп берүүгө</li>
+        <li>Курсту аяктагандан кийин сертификат берүүгө</li>
+      </ul>
+      <p><strong>Буйрутмачы милдеттенет:</strong></p>
+      <ul>
+        <li>Курстун материалдарын үчүнчү жактарга таратпоого</li>
+        <li>Курстун мазмунун коммерциялык максаттарда көчүрбөөгө жана жаңыламаганга</li>
+        <li>Алынган билимди мыйзамдуу максаттарда колдонууга</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>5. Каражаттарды кайтаруу</h2>
+      <p>Акча каражаттарын кайтаруу төлөм учурунан баштап 3 күн ичинде Буйрутмачы курстун 2 сабагынан ашык көрбөгөн шартта мүмкүн.</p>
+      <p>Кайтаруу үчүн: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <div class="divider"></div>
+      <h2>6. Интеллектуалдык менчик</h2>
+      <p>Курстун бардык материалдары ALIEV AI LAB интеллектуалдык менчиги болуп саналат. Аткаруучунун жазуу жүзүндөгү уруксатысыз материалдарды көчүрүү, жайылтуу же жаңылоо тыюу салынат.</p>
+      <div class="divider"></div>
+      <h2>7. Байланыш маалыматтары</h2>
+      <p>Email: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/971589300286">+971 589 300 286</a></p>
+      <p>Instagram: <a href="https://instagram.com/alievkgz">@alievkgz</a></p>
+      <footer>© 2026 ALIEV AI LAB. Бардык укуктар корголгон.</footer>
+    `
+  },
+  en: {
+    back: '← Back to main',
+    title: 'Public Offer Agreement',
+    date: 'Effective date: January 1, 2026',
+    body: `
+      <h2>1. General provisions</h2>
+      <p>This document is a public offer of ALIEV AI LAB (hereinafter — "Service Provider") and contains all essential terms of the agreement for the provision of educational services in a remote format.</p>
+      <p>Acceptance of this offer is the fact of payment for the Service Provider's services. From the moment of payment, the agreement is considered concluded on the terms set out in this offer.</p>
+      <div class="divider"></div>
+      <h2>2. Subject of agreement</h2>
+      <p>The Service Provider undertakes to provide the Customer with access to the online course "ALIEV AI LAB" — an educational program on content creation using artificial intelligence tools.</p>
+      <p>The course includes:</p>
+      <ul>
+        <li>7 training modules in video format</li>
+        <li>Study materials, prompts and templates (depending on the plan)</li>
+        <li>Access to the closed student community (in Pro and Individual plans)</li>
+        <li>Course completion certificate</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>3. Cost and payment procedure</h2>
+      <p>The cost of services is determined by the selected plan:</p>
+      <ul>
+        <li>Standard — $105</li>
+        <li>Pro — $205</li>
+        <li>Individual — $500</li>
+      </ul>
+      <p>Payment is made once in full before the start of training. Available payment methods: bank card (Visa, Mastercard), Apple Pay, USDT (TRC20), bank transfer via WhatsApp.</p>
+      <p>Bank card data is not stored by the Service Provider.</p>
+      <div class="divider"></div>
+      <h2>4. Rights and obligations of the parties</h2>
+      <p><strong>The Service Provider undertakes to:</strong></p>
+      <ul>
+        <li>Provide access to the course within 24 hours after payment confirmation</li>
+        <li>Ensure round-the-clock access to study materials</li>
+        <li>Answer Customer questions within 30 minutes during business hours</li>
+        <li>Issue a certificate after course completion</li>
+      </ul>
+      <p><strong>The Customer undertakes to:</strong></p>
+      <ul>
+        <li>Not distribute course materials to third parties</li>
+        <li>Not copy or reproduce course content for commercial purposes</li>
+        <li>Use the knowledge gained for lawful purposes</li>
+      </ul>
+      <div class="divider"></div>
+      <h2>5. Refund policy</h2>
+      <p>A refund is possible within 3 days from the date of payment, provided that the Customer has not watched more than 2 course lessons.</p>
+      <p>To request a refund: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <div class="divider"></div>
+      <h2>6. Intellectual property</h2>
+      <p>All course materials are the intellectual property of ALIEV AI LAB. Any copying, distribution or reproduction of materials without the written permission of the Service Provider is prohibited.</p>
+      <div class="divider"></div>
+      <h2>7. Contact information</h2>
+      <p>Email: <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/971589300286">+971 589 300 286</a></p>
+      <p>Instagram: <a href="https://instagram.com/alievkgz">@alievkgz</a></p>
+      <footer>© 2026 ALIEV AI LAB. All rights reserved.</footer>
+    `
+  }
+};
+
+function setLang(lang) {
+  const t = content[lang];
+  document.getElementById('backLink').textContent = t.back;
+  document.getElementById('content').innerHTML = `<h1>${t.title}</h1><div class="date">${t.date}</div>${t.body}`;
+  document.querySelectorAll('.lang-sw button').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-sw button[onclick="setLang('${lang}')"]`).classList.add('active');
+  localStorage.setItem('lang', lang);
+}
+
+const saved = localStorage.getItem('lang') || 'ru';
+setLang(saved);
+</script>
 </body>
 </html>
