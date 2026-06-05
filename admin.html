@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALIEV AI LAB — Админ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, collection, getDocs, doc, getDoc, updateDoc, setDoc, deleteField }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey:            "AIzaSyCbKOt6zzRbrxgNTqBlFzD1eN4ZFv7rODs",
+    authDomain:        "aliev-ai-lab.firebaseapp.com",
+    projectId:         "aliev-ai-lab",
+    storageBucket:     "aliev-ai-lab.firebasestorage.app",
+    messagingSenderId: "719055180114",
+    appId:             "1:719055180114:web:c0eff9d99e0386ceed6a8b"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // ── Только этот email может зайти в админку ──
+  const ADMIN_EMAIL = 'vashdrugdubai@gmail.com';
+
+  window.doAdminLogin = async function() {
+    const email = document.getElementById('adminEmail').value.trim();
+    const pass  = document.getElementById('adminPass').value;
+    const err   = document.getElementById('adminError');
+    err.textContent = '';
+    if (!email || !pass) { err.textContent = 'Введите email и пароль'; return; }
+    document.getElementById('btnLoginText').textContent = 'Входим…';
+    try {
+      const cred = await signInWithEmailAndPassword(auth, email, pass);
+      if (cred.user.email !== ADMIN_EMAIL) {
+        await signOut(auth);
+        err.textContent = 'Нет доступа к админ-панели';
+        document.getElementById('btnLoginText').textContent = 'Войти';
+        return;
+      }
+      showAdmin();
+      loadStudents();
+    } catch(e) {
+      err.textContent = 'Неверный email или пароль';
+      document.getElementById('btnLoginText').textContent = 'Войти';
+    }
+  };
+
+  window.doAdminLogout = async function() {
+    await signOut(auth);
+    document.getElementById('loginPage').style.display = 'flex';
+    document.getElementById('adminPage').style.display = 'none';
+  };
+
+  onAuthStateChanged(auth, user => {
+    if (user && user.email === ADMIN_EMAIL) {
+      showAdmin();
+      loadStudents();
+    }
+  });
+
+  function showAdmin() {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('adminPage').style.display = 'block';
+  }
+
+  // ── Загрузить всех студентов ──
+  window.loadStudents = async function() {
+    const list = document.getElementById('studentList');
+    list.innerHTML = '<div class="loading">Загружаем студентов…</div>';
+    try {
+      const snap = await getDocs(collection(db, 'students'));
+      if (snap.empty) { list.innerHTML = '<div class="empty">Студентов пока нет</div>'; return; }
+      list.innerHTML = '';
+      snap.forEach(d => {
+        const data = d.data();
+        list.appendChild(buildStudentCard(d.id, data));
+      });
+    } catch(e) {
+      list.innerHTML = '<div class="error">Ошибка загрузки: ' + e.message + '</div>';
+    }
+  };
+
+  function buildStudentCard(uid, data) {
+    const unlocked = data.unlockedModules || 1;
+    const card = document.createElement('div');
+    card.className = 'student-card';
+    card.id = 'card-' + uid;
+
+    const modules = [
+      'Старт: Добро пожаловать в будущее',
+      'Как разговаривать с ИИ',
+      'Фото которое не отличить от реального',
+      'Оживи своё фото — создай видео',
+      'Собери рекламу за 15 минут',
+      'Твой стиль, твой бренд',
+      'Ты готов — выходи на рынок'
+    ];
+
+    const dots = modules.map((m, i) => {
+      const done = i < unlocked;
+      return `<div class="mod-dot ${done ? 'done' : ''}" title="${m}">${i+1}</div>`;
+    }).join('');
+
+    const devCount = (data.devices || []).length;
+
+    card.innerHTML = `
+      <div class="sc-top">
+        <div>
+          <div class="sc-name">${data.name || 'Без имени'}</div>
+          <div class="sc-email">${data.email || uid}</div>
+          <div class="sc-meta">
+            <span class="sc-badge ${data.plan || 'standard'}">${(data.plan || 'standard').toUpperCase()}</span>
+            <span class="sc-devices">📱 ${devCount}/2 устройств</span>
+          </div>
+        </div>
+        <div class="sc-progress-wrap">
+          <div class="sc-progress-label">Модуль ${unlocked} из 7</div>
+          <div class="sc-progress-bar"><div class="sc-progress-fill" style="width:${(unlocked/7)*100}%"></div></div>
+          <div class="sc-dots">${dots}</div>
+        </div>
+      </div>
+      <div class="sc-actions">
+        <button class="btn-open" onclick="openModule('${uid}', ${unlocked})" ${unlocked >= 7 ? 'disabled' : ''}>
+          ${unlocked >= 7 ? '✅ Все открыты' : '🔓 Открыть модуль ' + (unlocked + 1)}
+        </button>
+        <button class="btn-reset" onclick="resetDevices('${uid}')">🔄 Сбросить устройства</button>
+        <button class="btn-all" onclick="openAll('${uid}')">📂 Открыть все</button>
+      </div>
+    `;
+    return card;
+  }
+
+  // ── Открыть следующий модуль ──
+  window.openModule = async function(uid, current) {
+    if (current >= 7) return;
+    const newVal = current + 1;
+    try {
+      await updateDoc(doc(db, 'students', uid), { unlockedModules: newVal });
+      showToast(`✅ Модуль ${newVal} открыт!`);
+      loadStudents();
+    } catch(e) { showToast('Ошибка: ' + e.message, true); }
+  };
+
+  // ── Открыть все модули ──
+  window.openAll = async function(uid) {
+    if (!confirm('Открыть все 7 модулей для этого студента?')) return;
+    try {
+      await updateDoc(doc(db, 'students', uid), { unlockedModules: 7 });
+      showToast('✅ Все модули открыты!');
+      loadStudents();
+    } catch(e) { showToast('Ошибка: ' + e.message, true); }
+  };
+
+  // ── Сбросить устройства ──
+  window.resetDevices = async function(uid) {
+    if (!confirm('Сбросить список устройств? Студент сможет войти с нового устройства.')) return;
+    try {
+      await updateDoc(doc(db, 'students', uid), { devices: [] });
+      showToast('✅ Устройства сброшены!');
+      loadStudents();
+    } catch(e) { showToast('Ошибка: ' + e.message, true); }
+  };
+
+  // ── Добавить студента ──
+  window.addStudent = async function() {
+    const name  = document.getElementById('newName').value.trim();
+    const email = document.getElementById('newEmail').value.trim();
+    const pass  = document.getElementById('newPass').value.trim();
+    const plan  = document.getElementById('newPlan').value;
+    const err   = document.getElementById('addError');
+    err.textContent = '';
+    if (!name || !email || !pass) { err.textContent = 'Заполните все поля'; return; }
+
+    document.getElementById('btnAddText').textContent = 'Создаём…';
+    try {
+      // Создаём пользователя через Firebase Auth REST API
+      const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCbKOt6zzRbrxgNTqBlFzD1eN4ZFv7rODs`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pass, returnSecureToken: true })
+      });
+      const data = await res.json();
+      if (data.error) { err.textContent = data.error.message; document.getElementById('btnAddText').textContent = 'Добавить'; return; }
+
+      // Записываем данные в Firestore
+      await setDoc(doc(db, 'students', data.localId), {
+        name, email, plan,
+        unlockedModules: 1,
+        devices: [],
+        createdAt: new Date().toISOString()
+      });
+
+      showToast('✅ Студент добавлен!');
+      document.getElementById('newName').value = '';
+      document.getElementById('newEmail').value = '';
+      document.getElementById('newPass').value = '';
+      document.getElementById('btnAddText').textContent = 'Добавить';
+      loadStudents();
+    } catch(e) {
+      err.textContent = 'Ошибка: ' + e.message;
+      document.getElementById('btnAddText').textContent = 'Добавить';
+    }
+  };
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.background = isError ? 'rgba(220,80,80,0.95)' : 'rgba(78,205,196,0.95)';
+    t.style.opacity = '1';
+    t.style.transform = 'translateY(0)';
+    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(20px)'; }, 3000);
+  }
+</script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #060d14; color: #fff; font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+
+/* LOGIN */
+#loginPage {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: #060d14;
+}
+.login-box { width: 100%; max-width: 360px; padding: 2rem; }
+.login-logo { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(78,205,196,0.6); margin-bottom: 2.5rem; }
+.login-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: #c8d8e0; margin-bottom: 0.3rem; }
+.login-sub { font-size: 12px; color: #2a4a58; margin-bottom: 2rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 10px; color: #3a5a68; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+.form-group input, .form-group select {
+  width: 100%; background: #0a1a25; border: 1px solid #1a2e3e;
+  border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #fff;
+  outline: none; font-family: inherit; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus { border-color: rgba(78,205,196,0.4); }
+.form-group input::placeholder { color: #1a3040; }
+.login-error, .add-error { font-size: 12px; color: #e05555; min-height: 16px; margin-bottom: 0.5rem; }
+.btn-primary {
+  width: 100%; background: rgba(78,205,196,0.15); color: #4ecdc4;
+  border: 1px solid rgba(78,205,196,0.4); border-radius: 8px;
+  padding: 12px; font-size: 13px; font-weight: 500; cursor: pointer;
+  font-family: inherit; transition: all 0.2s;
+}
+.btn-primary:hover { background: rgba(78,205,196,0.25); border-color: #4ecdc4; }
+
+/* ADMIN PAGE */
+#adminPage { display: none; min-height: 100vh; }
+
+.admin-nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem; background: rgba(6,13,20,0.95);
+  border-bottom: 1px solid rgba(78,205,196,0.1); backdrop-filter: blur(14px);
+}
+.admin-logo { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(78,205,196,0.7); }
+.admin-nav-right { display: flex; align-items: center; gap: 1rem; }
+.btn-logout { font-size: 12px; color: #2a4a58; background: none; border: none; cursor: pointer; font-family: inherit; transition: color 0.2s; }
+.btn-logout:hover { color: #c0dce4; }
+.btn-refresh { font-size: 12px; color: #4ecdc4; background: none; border: 1px solid rgba(78,205,196,0.3); border-radius: 6px; padding: 6px 14px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.btn-refresh:hover { background: rgba(78,205,196,0.1); }
+
+.admin-body { padding: 2rem; max-width: 1000px; margin: 0 auto; }
+
+/* ADD STUDENT */
+.add-section {
+  background: rgba(10,22,35,0.8); border: 1px solid rgba(78,205,196,0.15);
+  border-radius: 14px; padding: 1.5rem; margin-bottom: 2.5rem;
+}
+.section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(78,205,196,0.5); margin-bottom: 1.2rem; }
+.add-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 160px 120px; gap: 10px; align-items: end; }
+.btn-add {
+  background: rgba(78,205,196,0.15); color: #4ecdc4;
+  border: 1px solid rgba(78,205,196,0.4); border-radius: 8px;
+  padding: 12px; font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: inherit; transition: all 0.2s; white-space: nowrap;
+}
+.btn-add:hover { background: rgba(78,205,196,0.25); }
+
+/* STUDENT CARDS */
+.students-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(78,205,196,0.5); margin-bottom: 1.2rem; }
+.student-card {
+  background: rgba(10,22,35,0.75); border: 1px solid rgba(78,205,196,0.12);
+  border-radius: 12px; padding: 1.4rem; margin-bottom: 12px;
+  transition: border-color 0.3s;
+}
+.student-card:hover { border-color: rgba(78,205,196,0.3); }
+.sc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; margin-bottom: 1rem; }
+.sc-name { font-size: 15px; color: #c8d8e0; font-weight: 500; margin-bottom: 3px; }
+.sc-email { font-size: 12px; color: #3a5a68; margin-bottom: 8px; }
+.sc-meta { display: flex; align-items: center; gap: 10px; }
+.sc-badge { font-size: 9px; letter-spacing: 0.12em; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+.sc-badge.standard { background: rgba(100,150,200,0.15); color: #7aaad4; border: 1px solid rgba(100,150,200,0.2); }
+.sc-badge.pro { background: rgba(78,205,196,0.12); color: #4ecdc4; border: 1px solid rgba(78,205,196,0.25); }
+.sc-badge.individual { background: rgba(255,200,80,0.1); color: #ffc850; border: 1px solid rgba(255,200,80,0.2); }
+.sc-devices { font-size: 11px; color: #2a4a58; }
+.sc-progress-wrap { text-align: right; min-width: 180px; }
+.sc-progress-label { font-size: 11px; color: #4ecdc4; margin-bottom: 6px; font-family: 'Cormorant Garamond', serif; font-size: 14px; }
+.sc-progress-bar { height: 2px; background: rgba(78,205,196,0.1); border-radius: 2px; margin-bottom: 8px; }
+.sc-progress-fill { height: 2px; background: linear-gradient(to right, #4ecdc4, #73ecff); border-radius: 2px; box-shadow: 0 0 6px rgba(78,205,196,0.5); transition: width 0.5s; }
+.sc-dots { display: flex; gap: 5px; justify-content: flex-end; }
+.mod-dot {
+  width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(78,205,196,0.15);
+  font-size: 9px; color: #2a4a58; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.mod-dot.done { background: rgba(78,205,196,0.2); border-color: #4ecdc4; color: #4ecdc4; box-shadow: 0 0 6px rgba(78,205,196,0.3); }
+.sc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-open {
+  background: rgba(78,205,196,0.1); color: #4ecdc4;
+  border: 1px solid rgba(78,205,196,0.3); border-radius: 7px;
+  padding: 8px 16px; font-size: 12px; cursor: pointer; font-family: inherit;
+  transition: all 0.2s; white-space: nowrap;
+}
+.btn-open:hover:not(:disabled) { background: rgba(78,205,196,0.2); border-color: #4ecdc4; }
+.btn-open:disabled { opacity: 0.4; cursor: default; }
+.btn-reset {
+  background: rgba(255,180,50,0.08); color: #ffb432;
+  border: 1px solid rgba(255,180,50,0.2); border-radius: 7px;
+  padding: 8px 16px; font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.2s;
+}
+.btn-reset:hover { background: rgba(255,180,50,0.15); }
+.btn-all {
+  background: rgba(100,150,255,0.08); color: #7aaad4;
+  border: 1px solid rgba(100,150,255,0.2); border-radius: 7px;
+  padding: 8px 16px; font-size: 12px; cursor: pointer; font-family: inherit; transition: all 0.2s;
+}
+.btn-all:hover { background: rgba(100,150,255,0.15); }
+.loading, .empty, .error { font-size: 13px; color: #2a4a58; padding: 2rem; text-align: center; }
+.error { color: #e05555; }
+
+/* TOAST */
+#toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: rgba(78,205,196,0.95); color: #000; font-size: 13px; font-weight: 600;
+  padding: 10px 22px; border-radius: 8px; opacity: 0;
+  transition: all 0.3s; z-index: 9999; pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .add-grid { grid-template-columns: 1fr 1fr; }
+  .sc-top { flex-direction: column; gap: 1rem; }
+  .sc-progress-wrap { text-align: left; }
+  .sc-dots { justify-content: flex-start; }
+  .admin-body { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="login-box">
+    <div class="login-logo">ALIEV AI LAB</div>
+    <div class="login-title">Админ-панель</div>
+    <div class="login-sub">Только для администратора</div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="adminEmail" placeholder="admin@email.com" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+    <div class="form-group">
+      <label>Пароль</label>
+      <input type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+    <div class="login-error" id="adminError"></div>
+    <button class="btn-primary" onclick="doAdminLogin()"><span id="btnLoginText">Войти</span></button>
+  </div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="adminPage">
+
+  <nav class="admin-nav">
+    <div class="admin-logo">ALIEV AI LAB — Админ</div>
+    <div class="admin-nav-right">
+      <button class="btn-refresh" onclick="loadStudents()">↻ Обновить</button>
+      <button class="btn-logout" onclick="doAdminLogout()">Выйти</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+
+    <!-- Добавить студента -->
+    <div class="add-section">
+      <div class="section-label">➕ Добавить студента</div>
+      <div class="add-grid">
+        <div class="form-group" style="margin:0">
+          <label>Имя</label>
+          <input type="text" id="newName" placeholder="Имя студента">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Email</label>
+          <input type="email" id="newEmail" placeholder="student@email.com">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Пароль</label>
+          <input type="text" id="newPass" placeholder="Придумайте пароль">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Тариф</label>
+          <select id="newPlan">
+            <option value="standard">Standard — $105</option>
+            <option value="pro">Pro — $205</option>
+            <option value="individual">Individual — $500</option>
+          </select>
+        </div>
+        <button class="btn-add" onclick="addStudent()"><span id="btnAddText">Добавить</span></button>
+      </div>
+      <div class="add-error" id="addError"></div>
+    </div>
+
+    <!-- Список студентов -->
+    <div class="students-label">👥 Студенты</div>
+    <div id="studentList">
+      <div class="loading">Загружаем…</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
