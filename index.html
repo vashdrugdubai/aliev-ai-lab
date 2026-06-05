@@ -271,6 +271,7 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
       <div class="lang-switcher">
         <button class="lang-btn active" onclick="setLang('ru')">RU</button>
         <button class="lang-btn" onclick="setLang('ky')">KY</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
       </div>
       <button class="nav-help" onclick="document.getElementById('helpOverlay').classList.add('open')" data-i18n="help">Нужна помощь?</button>
       <a class="nav-login" href="/student.html" data-i18n="login">Войти</a>
@@ -322,7 +323,7 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
       <div class="about-stats">
         <div class="stat-item"><div class="stat-num">30</div><div class="stat-label" data-i18n="stat1">дней обучения</div></div>
         <div class="stat-item"><div class="stat-num">7</div><div class="stat-label" data-i18n="stat2">модулей курса</div></div>
-        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label" data-i18n="stat3">доступ к материалам</div></div>
+        <div class="stat-item"><div class="stat-num">6</div><div class="stat-label" data-i18n="stat3">месяцев доступа</div></div>
       </div>
     </div>
     <div class="about-features">
@@ -446,7 +447,7 @@ const translations = {
     aboutTitle: 'Мы учим создавать контент, который невозможно отличить от реального',
     aboutText1: 'ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.',
     aboutText2: 'За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.',
-    stat1: 'дней обучения', stat2: 'модулей курса', stat3: 'доступ к материалам',
+    stat1: 'дней обучения', stat2: 'модулей курса', stat3: 'месяцев доступа',
     feat1t: 'Практический подход', feat1d: 'Каждый урок содержит реальные задания — вы сразу применяете знания на практике',
     feat2t: 'Актуальные инструменты', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs и другие топовые AI-инструменты 2026 года',
     feat3t: 'Доступ откуда угодно', feat3d: 'Учитесь с телефона или компьютера в любое удобное время без ограничений',
@@ -467,7 +468,7 @@ const translations = {
     aboutTitle: 'Биз чыныгыдан айырмалоо мүмкүн болбогон контент жасоону үйрөтөбүз',
     aboutText1: 'ALIEV AI Lab — жаңы муундун онлайн мектеби. Бул жерде сиз жасалма интеллекттин эң күчтүү куралдарын өздөштүрөсүз. Биз теория гана бербейбиз — практика аркылуу чыныгы натыйжага жетебиз.',
     aboutText2: '30 күн ичинде сиз нөлдөн профессионал деңгээлге чыгасыз жана ЖИ жардамы менен сүрөт, видео жана жарнамалык материалдарды жасай аласыз.',
-    stat1: 'күн окуу', stat2: 'модул', stat3: 'материалдарга кирүү',
+    stat1: 'күн окуу', stat2: 'модул', stat3: 'ай кирүү',
     feat1t: 'Практикалык ыкма', feat1d: 'Ар бир сабакта реалдуу тапшырмалар бар — билимди дароо колдонуп баштайсыз',
     feat2t: 'Актуалдуу куралдар', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs жана 2026-жылдын башка топ ЖИ куралдары',
     feat3t: 'Каада жерден кирүү', feat3d: 'Телефонуңуздан же компьютерден каада убакта чектөөсүз окуңуз',
@@ -478,6 +479,27 @@ const translations = {
     footerAbout: 'Платформа жөнүндө', oferta: 'Коомдук оферта', privacy: 'Купуялык саясаты',
     footerContacts: 'Байланыш', footerSocial: 'Социалдык тармактар',
     copyright: '© 2026 ALIEV AI Lab. Бардык укуктар корголгон.'
+  },
+  en: {
+    help: 'Need help?', login: 'Sign in',
+    heroLabel: 'Artificial Intelligence Laboratory',
+    heroSub: 'Master AI and create photos, videos and next-generation ads',
+    tariffs: 'PRICING →', program: 'View program',
+    aboutLabel: 'About platform',
+    aboutTitle: 'We teach you to create content indistinguishable from reality',
+    aboutText1: 'ALIEV AI Lab is a next-generation online school where you will master the most powerful artificial intelligence tools. We don\'t just give theory — we guide you through practice to real results.',
+    aboutText2: 'In 30 days you will go from zero to creating professional images, videos and advertising materials using AI.',
+    stat1: 'days of learning', stat2: 'course modules', stat3: 'months access',
+    feat1t: 'Practical approach', feat1d: 'Every lesson contains real tasks — you apply knowledge immediately',
+    feat2t: 'Current tools', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs and other top AI tools of 2026',
+    feat3t: 'Access from anywhere', feat3d: 'Learn from your phone or computer at any convenient time without restrictions',
+    feat4t: 'Certificate', feat4d: 'Upon completion of the course you receive a certificate',
+    modulesTitle: 'What awaits you',
+    mod1: 'Introduction to AI', mod2: 'How to communicate with AI', mod3: 'Realistic photos',
+    mod4: 'Video and animation', mod5: 'Editing and processing', mod6: 'Ideas and creativity', mod7: 'Results and next step',
+    footerAbout: 'About', oferta: 'Public offer', privacy: 'Privacy policy',
+    footerContacts: 'Contacts', footerSocial: 'Social media',
+    copyright: '© 2026 ALIEV AI Lab. All rights reserved.'
   }
 };
 
