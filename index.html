@@ -43,6 +43,10 @@ body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; m
 .nav-wa:hover { color: #fff; }
 .nav-login { font-size: 13px; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 8px 22px; transition: border-color 0.25s, box-shadow 0.25s; }
 .nav-login:hover { border-color: var(--cyan2); box-shadow: 0 0 14px rgba(115,236,255,0.3); }
+.lang-switcher { display: flex; gap: 4px; align-items: center; }
+.lang-btn { font-size: 11px; letter-spacing: 0.1em; color: #555; background: none; border: 1px solid transparent; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.lang-btn:hover { color: #aaa; }
+.lang-btn.active { color: var(--cyan2); border-color: rgba(115,236,255,0.35); }
 
 /* HERO CONTENT */
 .hero-content { position: relative; z-index: 10; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 2rem; }
@@ -264,17 +268,21 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
       <span class="logo-text">Aliev&nbsp;&nbsp;AI&nbsp;&nbsp;Lab</span>
     </a>
     <div class="nav-right">
-      <button class="nav-help" onclick="document.getElementById('helpOverlay').classList.add('open')">Нужна помощь?</button>
-      <a class="nav-login" href="/student.html">Войти</a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('ky')">KY</button>
+      </div>
+      <button class="nav-help" onclick="document.getElementById('helpOverlay').classList.add('open')" data-i18n="help">Нужна помощь?</button>
+      <a class="nav-login" href="/student.html" data-i18n="login">Войти</a>
     </div>
   </nav>
   <div class="hero-content">
-    <div class="hero-label">Лаборатория искусственного интеллекта</div>
+    <div class="hero-label" data-i18n="heroLabel">Лаборатория искусственного интеллекта</div>
     <h1 class="hero-title">ALIEV <span class="ai">AI</span> LAB</h1>
-    <p class="hero-sub">Освой искусственный интеллект и создавай фото, видео и рекламу нового поколения</p>
+    <p class="hero-sub" data-i18n="heroSub">Освой искусственный интеллект и создавай фото, видео и рекламу нового поколения</p>
     <div class="hero-btns">
-      <button class="btn-start" onclick="document.getElementById('pricingOverlay').classList.add('open')">ТАРИФЫ &nbsp;→</button>
-      <a href="#modules-section" class="btn-prog">Смотреть программу</a>
+      <button class="btn-start" onclick="document.getElementById('pricingOverlay').classList.add('open')" data-i18n="tariffs">ТАРИФЫ &nbsp;→</button>
+      <a href="#modules-section" class="btn-prog" data-i18n="program">Смотреть программу</a>
     </div>
     <button id="soundBtn" onclick="toggleMusic()" style="margin-top:1.8rem;display:inline-flex;align-items:center;gap:8px;background:rgba(10,22,35,0.5);border:1px solid rgba(78,205,196,0.25);border-radius:30px;padding:8px 20px;cursor:pointer;color:rgba(78,205,196,0.7);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-family:inherit;transition:all 0.3s;backdrop-filter:blur(8px);">
       <span id="soundIcon" style="font-size:15px">🔇</span>
@@ -307,32 +315,32 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
 <section class="about-section">
   <div class="about-inner">
     <div>
-      <div class="about-label">О платформе</div>
-      <h2 class="about-title">Мы учим создавать контент, который невозможно отличить от реального</h2>
-      <p class="about-text">ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.</p>
-      <p class="about-text">За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.</p>
+      <div class="about-label" data-i18n="aboutLabel">О платформе</div>
+      <h2 class="about-title" data-i18n="aboutTitle">Мы учим создавать контент, который невозможно отличить от реального</h2>
+      <p class="about-text" data-i18n="aboutText1">ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.</p>
+      <p class="about-text" data-i18n="aboutText2">За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.</p>
       <div class="about-stats">
-        <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">дней обучения</div></div>
-        <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">модулей курса</div></div>
-        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">доступ к материалам</div></div>
+        <div class="stat-item"><div class="stat-num">30</div><div class="stat-label" data-i18n="stat1">дней обучения</div></div>
+        <div class="stat-item"><div class="stat-num">7</div><div class="stat-label" data-i18n="stat2">модулей курса</div></div>
+        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label" data-i18n="stat3">доступ к материалам</div></div>
       </div>
     </div>
     <div class="about-features">
       <div class="feat-item">
         <div class="feat-icon">🎯</div>
-        <div><div class="feat-title">Практический подход</div><div class="feat-desc">Каждый урок содержит реальные задания — вы сразу применяете знания на практике</div></div>
+        <div><div class="feat-title" data-i18n="feat1t">Практический подход</div><div class="feat-desc" data-i18n="feat1d">Каждый урок содержит реальные задания — вы сразу применяете знания на практике</div></div>
       </div>
       <div class="feat-item">
         <div class="feat-icon">⚡</div>
-        <div><div class="feat-title">Актуальные инструменты</div><div class="feat-desc">Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs и другие топовые AI-инструменты 2026 года</div></div>
+        <div><div class="feat-title" data-i18n="feat2t">Актуальные инструменты</div><div class="feat-desc" data-i18n="feat2d">Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs и другие топовые AI-инструменты 2026 года</div></div>
       </div>
       <div class="feat-item">
         <div class="feat-icon">🌐</div>
-        <div><div class="feat-title">Доступ откуда угодно</div><div class="feat-desc">Учитесь с телефона или компьютера в любое удобное время без ограничений</div></div>
+        <div><div class="feat-title" data-i18n="feat3t">Доступ откуда угодно</div><div class="feat-desc" data-i18n="feat3d">Учитесь с телефона или компьютера в любое удобное время без ограничений</div></div>
       </div>
       <div class="feat-item">
         <div class="feat-icon">🏆</div>
-        <div><div class="feat-title">Сертификат</div><div class="feat-desc">По окончании курса вы получаете сертификат о прохождении обучения</div></div>
+        <div><div class="feat-title" data-i18n="feat4t">Сертификат</div><div class="feat-desc" data-i18n="feat4d">По окончании курса вы получаете сертификат о прохождении обучения</div></div>
       </div>
     </div>
   </div>
@@ -343,38 +351,38 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
   <div class="modules-inner">
     <div class="modules-header">
       <div class="modules-line"></div>
-      <div class="modules-title">Что вас ждёт</div>
+      <div class="modules-title" data-i18n="modulesTitle">Что вас ждёт</div>
       <div class="modules-line"></div>
     </div>
     <div class="modules-grid">
-      <a class="mod-card"><span class="mod-num">01</span><span class="mod-name">Знакомство с ИИ</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">02</span><span class="mod-name">Как общаться с ИИ</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">03</span><span class="mod-name">Реалистичные фото</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">04</span><span class="mod-name">Видео и анимация</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">05</span><span class="mod-name">Монтаж и обработка</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">06</span><span class="mod-name">Идеи и творчество</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card full-width"><span class="mod-num">07</span><span class="mod-name">Итоги и следующий шаг</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">01</span><span class="mod-name" data-i18n="mod1">Знакомство с ИИ</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">02</span><span class="mod-name" data-i18n="mod2">Как общаться с ИИ</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">03</span><span class="mod-name" data-i18n="mod3">Реалистичные фото</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">04</span><span class="mod-name" data-i18n="mod4">Видео и анимация</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">05</span><span class="mod-name" data-i18n="mod5">Монтаж и обработка</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">06</span><span class="mod-name" data-i18n="mod6">Идеи и творчество</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card full-width"><span class="mod-num">07</span><span class="mod-name" data-i18n="mod7">Итоги и следующий шаг</span><span class="mod-arrow">→</span></a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-col">
-    <h5>О платформе</h5>
-    <a href="/oferta.html">Публичная оферта</a>
-    <a href="/privacy.html">Политика конфиденциальности</a>
+    <h5 data-i18n="footerAbout">О платформе</h5>
+    <a href="/oferta.html" data-i18n="oferta">Публичная оферта</a>
+    <a href="/privacy.html" data-i18n="privacy">Политика конфиденциальности</a>
   </div>
   <div class="footer-col">
-    <h5>Контакты</h5>
+    <h5 data-i18n="footerContacts">Контакты</h5>
     <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a>
     <a href="https://wa.me/971589300286">+971 589 300 286</a>
   </div>
   <div class="footer-col">
-    <h5>Соцсети</h5>
+    <h5 data-i18n="footerSocial">Соцсети</h5>
     <a href="https://instagram.com/alievkgz" target="_blank">instagram.com/alievkgz</a>
   </div>
 </footer>
-<div class="footer-bottom">© 2026 ALIEV AI Lab. Все права защищены.</div>
+<div class="footer-bottom" data-i18n="copyright">© 2026 ALIEV AI Lab. Все права защищены.</div>
 
 <script>
 (function () {
@@ -426,6 +434,67 @@ function toggleMusic() {
     const t = setInterval(() => { v = Math.max(v-0.02,0); _music.volume=v; if(v<=0){_music.pause();clearInterval(t);} }, 60);
   }
 }
+</script>
+<script>
+const translations = {
+  ru: {
+    help: 'Нужна помощь?', login: 'Войти',
+    heroLabel: 'Лаборатория искусственного интеллекта',
+    heroSub: 'Освой искусственный интеллект и создавай фото, видео и рекламу нового поколения',
+    tariffs: 'ТАРИФЫ →', program: 'Смотреть программу',
+    aboutLabel: 'О платформе',
+    aboutTitle: 'Мы учим создавать контент, который невозможно отличить от реального',
+    aboutText1: 'ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.',
+    aboutText2: 'За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.',
+    stat1: 'дней обучения', stat2: 'модулей курса', stat3: 'доступ к материалам',
+    feat1t: 'Практический подход', feat1d: 'Каждый урок содержит реальные задания — вы сразу применяете знания на практике',
+    feat2t: 'Актуальные инструменты', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs и другие топовые AI-инструменты 2026 года',
+    feat3t: 'Доступ откуда угодно', feat3d: 'Учитесь с телефона или компьютера в любое удобное время без ограничений',
+    feat4t: 'Сертификат', feat4d: 'По окончании курса вы получаете сертификат о прохождении обучения',
+    modulesTitle: 'Что вас ждёт',
+    mod1: 'Знакомство с ИИ', mod2: 'Как общаться с ИИ', mod3: 'Реалистичные фото',
+    mod4: 'Видео и анимация', mod5: 'Монтаж и обработка', mod6: 'Идеи и творчество', mod7: 'Итоги и следующий шаг',
+    footerAbout: 'О платформе', oferta: 'Публичная оферта', privacy: 'Политика конфиденциальности',
+    footerContacts: 'Контакты', footerSocial: 'Соцсети',
+    copyright: '© 2026 ALIEV AI Lab. Все права защищены.'
+  },
+  ky: {
+    help: 'Жардам керекпи?', login: 'Кирүү',
+    heroLabel: 'Жасалма интеллект лабораториясы',
+    heroSub: 'Жасалма интеллектти өздөштүр жана жаңы муундун сүрөт, видео жана жарнамасын жасагын',
+    tariffs: 'ТАРИФТЕР →', program: 'Программаны көрүү',
+    aboutLabel: 'Платформа жөнүндө',
+    aboutTitle: 'Биз чыныгыдан айырмалоо мүмкүн болбогон контент жасоону үйрөтөбүз',
+    aboutText1: 'ALIEV AI Lab — жаңы муундун онлайн мектеби. Бул жерде сиз жасалма интеллекттин эң күчтүү куралдарын өздөштүрөсүз. Биз теория гана бербейбиз — практика аркылуу чыныгы натыйжага жетебиз.',
+    aboutText2: '30 күн ичинде сиз нөлдөн профессионал деңгээлге чыгасыз жана ЖИ жардамы менен сүрөт, видео жана жарнамалык материалдарды жасай аласыз.',
+    stat1: 'күн окуу', stat2: 'модул', stat3: 'материалдарга кирүү',
+    feat1t: 'Практикалык ыкма', feat1d: 'Ар бир сабакта реалдуу тапшырмалар бар — билимди дароо колдонуп баштайсыз',
+    feat2t: 'Актуалдуу куралдар', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs жана 2026-жылдын башка топ ЖИ куралдары',
+    feat3t: 'Каада жерден кирүү', feat3d: 'Телефонуңуздан же компьютерден каада убакта чектөөсүз окуңуз',
+    feat4t: 'Сертификат', feat4d: 'Курсту аяктагандан кийин окуу сертификатын аласыз',
+    modulesTitle: 'Сизди эмне күтөт',
+    mod1: 'ЖИ менен таанышуу', mod2: 'ЖИ менен кантип сүйлөшүү', mod3: 'Реалдуу сүрөттөр',
+    mod4: 'Видео жана анимация', mod5: 'Монтаж жана иштетүү', mod6: 'Идеялар жана чыгармачылык', mod7: 'Жыйынтыктар жана кийинки кадам',
+    footerAbout: 'Платформа жөнүндө', oferta: 'Коомдук оферта', privacy: 'Купуялык саясаты',
+    footerContacts: 'Байланыш', footerSocial: 'Социалдык тармактар',
+    copyright: '© 2026 ALIEV AI Lab. Бардык укуктар корголгон.'
+  }
+};
+
+function setLang(lang) {
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  localStorage.setItem('lang', lang);
+}
+
+// Восстановить язык при загрузке
+const savedLang = localStorage.getItem('lang');
+if (savedLang && savedLang !== 'ru') setLang(savedLang);
 </script>
 </body>
 </html>
