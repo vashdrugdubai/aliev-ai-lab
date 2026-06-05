@@ -94,11 +94,13 @@
       await updateDoc(ref, { devices: arrayUnion(deviceId) });
     }
 
-    // Успешный вход
+    // Успешный вход — обновляем data из Firebase (свежие данные)
+    const freshSnap = await getDoc(ref);
+    const freshData = freshSnap.data();
     window._loginInProgress = false;
-    window._currentUser = { uid: user.uid, email: user.email, data };
+    window._currentUser = { uid: user.uid, email: user.email, data: freshData };
     window._freshLogin = true;
-    loadDashboard(user.email, data);
+    loadDashboard(user.email, freshData);
   }
 
   // ── Выход ──
@@ -1042,9 +1044,23 @@
     resize(); init(); frame();
   }
 
-  function openCourse(mod) {
-    if (mod > 2) return;
+  async function openCourse(mod) {
+    const unlocked = window._currentUser?.data?.unlockedModules || 1;
+    if (mod > unlocked) return;
     showPage('coursePage');
+    // Сохраняем прогресс в Firebase
+    try {
+      const ref = doc(db, 'students', window._currentUser.uid);
+      await updateDoc(ref, { lastModule: mod });
+      window._currentUser.data.lastModule = mod;
+    } catch(e) {}
+  }
+
+  async function saveLesson(lessonNum) {
+    try {
+      const ref = doc(db, 'students', window._currentUser.uid);
+      await updateDoc(ref, { lastLesson: lessonNum });
+    } catch(e) {}
   }
 
   // ── Уроки ──
@@ -1061,6 +1077,7 @@
     const l = lessons[num];
     if (!l) return;
     window._currentLesson = num;
+    saveLesson(num);
     document.getElementById('lessonTag').textContent = l.tag;
     document.getElementById('lessonTitle').textContent = l.title;
     document.getElementById('lessonBody').innerHTML = l.body;
