@@ -139,12 +139,8 @@
     const unlocked = data.unlockedModules || 1;
     renderModules(unlocked);
     updateProgress(unlocked);
-    if (window._freshLogin) {
-      window._freshLogin = false;
-      showWelcomeScreen();
-    } else {
-      showPage('dashboardPage');
-    }
+    window._freshLogin = false;
+    showPage('dashboardPage');
   }
 
   const MODULE_NAMES = [
