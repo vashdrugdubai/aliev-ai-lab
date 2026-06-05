@@ -277,8 +277,41 @@
   }
 
   /* ── LOGIN ── */
-  #loginPage { align-items: center; justify-content: center; background: #000; }
-  .login-box { width: 100%; max-width: 380px; padding: 2rem; }
+  #loginPage {
+    align-items: center; justify-content: center;
+    background: url("top-bg.png") center/cover no-repeat;
+    position: relative;
+  }
+  #loginPage::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(6,13,20,0.3) 0%, rgba(6,13,20,0.75) 60%, rgba(6,13,20,0.97) 100%);
+    z-index: 0;
+  }
+  .login-box {
+    width: 100%; max-width: 380px; padding: 2.5rem;
+    position: relative; z-index: 1;
+    background: rgba(6,14,24,0.7);
+    border: 1px solid rgba(78,205,196,0.15);
+    border-radius: 18px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 60px rgba(78,205,196,0.08);
+  }
+  .form-group input {
+    background: rgba(10,22,35,0.8) !important;
+    border-color: rgba(78,205,196,0.15) !important;
+  }
+  .form-group input:focus { border-color: rgba(78,205,196,0.45) !important; }
+  .btn-login {
+    background: rgba(78,205,196,0.15) !important;
+    color: #c8d8e0 !important;
+    border: 1px solid rgba(78,205,196,0.4) !important;
+    transition: all 0.3s !important;
+  }
+  .btn-login:hover {
+    background: rgba(78,205,196,0.28) !important;
+    border-color: #4ecdc4 !important;
+    box-shadow: 0 0 20px rgba(78,205,196,0.3) !important;
+  }
   .login-logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.9rem; font-weight: 300;
@@ -400,11 +433,19 @@
   .lesson-body { font-size: 14px; color: #777; line-height: 1.85; max-width: 600px; }
   .lesson-body p { margin-bottom: 1rem; }
   .btn-next {
-    margin-top: 2rem; display: inline-block; background: #fff; color: #000;
-    border: none; border-radius: 8px; padding: 12px 26px; font-size: 13px;
-    font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s;
+    margin-top: 2rem; display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(78,205,196,0.12); color: #c8d8e0;
+    border: 1px solid rgba(78,205,196,0.4); border-radius: 10px;
+    padding: 14px 28px; font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.3s;
   }
-  .btn-next:hover { background: #e8e8e8; }
+  .btn-next:hover {
+    background: rgba(78,205,196,0.22);
+    border-color: #4ecdc4;
+    box-shadow: 0 0 20px rgba(78,205,196,0.3);
+    color: #fff;
+  }
 
   /* ── WELCOME SCREEN ── */
   #welcomePage {
@@ -585,7 +626,19 @@
   }
 
   /* Modules grid */
-  .dash-modules-section { padding: 3.5rem 2.5rem; background: #03090f; }
+  .dash-modules-section {
+    padding: 3.5rem 2.5rem;
+    background: url("top-bg.png") center/cover no-repeat fixed;
+    position: relative;
+  }
+  .dash-modules-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(3,6,12,0.88);
+    pointer-events: none;
+  }
+  .dash-modules-inner { position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; }
   .dash-modules-inner { max-width: 1000px; margin: 0 auto; }
   .dash-section-header { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 2.2rem; }
   .dash-section-line { flex: 1; max-width: 100px; height: 1px; background: rgba(78,205,196,0.2); }
@@ -1001,9 +1054,13 @@
     3: { tag: 'Модуль 2 · Урок 3', title: 'Негативные промпты', body: '<p>Негативный промпт — это то, что ты НЕ хочешь видеть в изображении. Мощный инструмент для устранения артефактов.</p><p>Пример: <em style="color:#aaa">blurry, low quality, extra fingers, watermark, text</em></p>' },
   };
 
+  const TOTAL_LESSONS = Object.keys(lessons).length;
+
   function setLesson(num) {
-    if (num > 3) return;
+    if (num > TOTAL_LESSONS) return;
     const l = lessons[num];
+    if (!l) return;
+    window._currentLesson = num;
     document.getElementById('lessonTag').textContent = l.tag;
     document.getElementById('lessonTitle').textContent = l.title;
     document.getElementById('lessonBody').innerHTML = l.body;
@@ -1011,9 +1068,13 @@
       el.classList.remove('active');
       if (i === num - 1 && !el.classList.contains('locked')) el.classList.add('active');
     });
+    // Прокрутить наверх урока
+    document.querySelector('.course-main').scrollTo({ top: 0, behavior: 'smooth' });
+    // Кнопка следующего урока
     const nextBtn = document.querySelector('.btn-next');
-    if (num < 3) {
+    if (num < TOTAL_LESSONS && lessons[num + 1]) {
       nextBtn.style.display = 'inline-block';
+      nextBtn.textContent = `Следующий урок: ${lessons[num+1].title} →`;
       nextBtn.onclick = () => setLesson(num + 1);
     } else {
       nextBtn.style.display = 'none';
