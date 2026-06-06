@@ -1605,7 +1605,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(height: 6),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text('Код отправлен на ${widget.phone}',
+                  child: Text('Код отправлен на ${widget.contact}',
                       style: const TextStyle(
                           color: Color(0xFFAAD4F5), fontSize: 14)),
                 ),
