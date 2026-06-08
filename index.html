@@ -43,10 +43,6 @@ body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; m
 .nav-wa:hover { color: #fff; }
 .nav-login { font-size: 13px; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 8px 22px; transition: border-color 0.25s, box-shadow 0.25s; }
 .nav-login:hover { border-color: var(--cyan2); box-shadow: 0 0 14px rgba(115,236,255,0.3); }
-.lang-switcher { display: flex; gap: 4px; align-items: center; }
-.lang-btn { font-size: 11px; letter-spacing: 0.1em; color: #555; background: none; border: 1px solid transparent; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-.lang-btn:hover { color: #aaa; }
-.lang-btn.active { color: var(--cyan2); border-color: rgba(115,236,255,0.35); }
 
 /* HERO CONTENT */
 .hero-content { position: relative; z-index: 10; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 2rem; }
@@ -174,16 +170,16 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
 <div class="overlay" id="helpOverlay" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="popup">
     <button class="popup-close" onclick="document.getElementById('helpOverlay').classList.remove('open')">✕</button>
-    <div class="popup-title" data-i18n="help">Нужна помощь?</div>
-    <p><strong style="color:#aaa" data-i18n="helpReady">Мы всегда готовы помочь!</strong></p>
-    <h4 data-i18n="helpContact">💬 По вопросам обучения и оплаты:</h4>
+    <div class="popup-title">Нужна помощь?</div>
+    <p><strong style="color:#aaa">Мы всегда готовы помочь!</strong></p>
+    <h4>💬 По вопросам обучения и оплаты:</h4>
     <p><a href="https://wa.me/971589300286">WhatsApp: +971 589 300 286</a><br>
        <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a></p>
     <div class="popup-divider"></div>
-    <h4 data-i18n="helpSocial">📸 Мы в соцсетях:</h4>
+    <h4>📸 Мы в соцсетях:</h4>
     <p><a href="https://instagram.com/alievkgz">@alievkgz</a></p>
     <div class="popup-divider"></div>
-    <div class="popup-meta" data-i18n="helpTime">Обычное время ответа: 15–30 минут</div>
+    <div class="popup-meta">Обычное время ответа: 15–30 минут</div>
   </div>
 </div>
 
@@ -192,66 +188,66 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
   <div class="popup">
     <button class="popup-close" onclick="document.getElementById('pricingOverlay').classList.remove('open')">✕</button>
     <div class="pricing-header">
-      <h2 data-i18n="pricingTitle">Выберите тариф</h2>
-      <p data-i18n="pricingSub">Единоразовая оплата — без подписки и сохранения данных карты</p>
+      <h2>Выберите тариф</h2>
+      <p>Единоразовая оплата — без подписки и сохранения данных карты</p>
     </div>
     <div class="pricing-grid">
       <!-- STANDARD -->
       <div class="plan-card">
         <div class="plan-name">Standard</div>
         <div class="plan-price">$105</div>
-        <div class="plan-desc" data-i18n="stdDesc">Всё необходимое для старта</div>
+        <div class="plan-desc">Всё необходимое для старта</div>
         <ul class="plan-features">
-          <li data-i18n="stdF1">Все 7 модулей курса</li>
-          <li data-i18n="stdF2">Доступ к урокам 24/7</li>
-          <li data-i18n="stdF3">Обновления курса</li>
-          <li data-i18n="stdF4">Доступ с телефона и компьютера</li>
-          <li data-i18n="stdF5">Сертификат о прохождении</li>
+          <li>Все 7 модулей курса</li>
+          <li>Доступ к урокам 24/7</li>
+          <li>Обновления курса</li>
+          <li>Доступ с телефона и компьютера</li>
+          <li>Сертификат о прохождении</li>
         </ul>
-        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Standard%20-%20%24105" data-i18n="buyStd">Купить — $105</a>
+        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Standard%20-%20%24105">Купить — $105</a>
       </div>
       <!-- PRO -->
       <div class="plan-card featured">
-        <div class="plan-badge" data-i18n="popular">Популярный</div>
+        <div class="plan-badge">Популярный</div>
         <div class="plan-name">Pro</div>
         <div class="plan-price">$205</div>
-        <div class="plan-desc" data-i18n="proDesc">Максимальный результат</div>
+        <div class="plan-desc">Максимальный результат</div>
         <ul class="plan-features">
-          <li data-i18n="proF1">Всё из Standard</li>
-          <li data-i18n="proF2">Проверка домашних заданий</li>
-          <li data-i18n="proF3">Дополнительные AI-инструменты</li>
-          <li data-i18n="proF4">Готовые промпты и шаблоны</li>
-          <li data-i18n="proF5">Закрытый чат учеников</li>
-          <li data-i18n="proF6">Приоритетная поддержка</li>
+          <li>Всё из Standard</li>
+          <li>Проверка домашних заданий</li>
+          <li>Дополнительные AI-инструменты</li>
+          <li>Готовые промпты и шаблоны</li>
+          <li>Закрытый чат учеников</li>
+          <li>Приоритетная поддержка</li>
         </ul>
-        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Pro%20-%20%24205" data-i18n="buyPro">Купить — $205</a>
+        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Pro%20-%20%24205">Купить — $205</a>
       </div>
       <!-- INDIVIDUAL -->
       <div class="plan-card">
         <div class="plan-name">Individual</div>
         <div class="plan-price">$500</div>
-        <div class="plan-desc" data-i18n="indDesc">Персональный подход</div>
+        <div class="plan-desc">Персональный подход</div>
         <ul class="plan-features">
-          <li data-i18n="indF1">Всё из Pro</li>
-          <li data-i18n="indF2">Индивидуальное сопровождение</li>
-          <li data-i18n="indF3">Персональная консультация</li>
-          <li data-i18n="indF4">Разбор проектов 1 на 1</li>
-          <li data-i18n="indF5">Помощь в запуске первых заказов</li>
-          <li data-i18n="indF6">Личный план развития в AI</li>
+          <li>Всё из Pro</li>
+          <li>Индивидуальное сопровождение</li>
+          <li>Персональная консультация</li>
+          <li>Разбор проектов 1 на 1</li>
+          <li>Помощь в запуске первых заказов</li>
+          <li>Личный план развития в AI</li>
         </ul>
-        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Individual%20-%20%24500" data-i18n="buyInd">Купить — $500</a>
+        <a class="btn-buy" href="https://wa.me/971589300286?text=Хочу%20купить%20тариф%20Individual%20-%20%24500">Купить — $500</a>
       </div>
     </div>
     <div class="payment-section">
-      <div class="payment-title" data-i18n="payTitle">Способы оплаты</div>
+      <div class="payment-title">Способы оплаты</div>
       <div class="payment-methods">
         <div class="pay-badge">💳 Visa</div>
         <div class="pay-badge">💳 Mastercard</div>
         <div class="pay-badge">🍎 Apple Pay</div>
         <div class="pay-badge">₮ USDT (TRC20)</div>
-        <div class="pay-badge wa" data-i18n="payWa">💬 Перевод через WhatsApp</div>
+        <div class="pay-badge wa">💬 Перевод через WhatsApp</div>
       </div>
-      <div class="pay-note" data-i18n="payNote">Разовая оплата — данные карты не сохраняются.<br>Для оплаты через перевод напишите нам в WhatsApp.</div>
+      <div class="pay-note">Разовая оплата — данные карты не сохраняются.<br>Для оплаты через перевод напишите нам в WhatsApp.</div>
     </div>
   </div>
 </div>
@@ -268,26 +264,22 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
       <span class="logo-text">Aliev&nbsp;&nbsp;AI&nbsp;&nbsp;Lab</span>
     </a>
     <div class="nav-right">
-      <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
-        <button class="lang-btn" onclick="setLang('ky')">KY</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-      </div>
-      <button class="nav-help" onclick="document.getElementById('helpOverlay').classList.add('open')" data-i18n="help">Нужна помощь?</button>
-      <a class="nav-login" href="/student.html" data-i18n="login">Войти</a>
+      <button class="nav-help" onclick="document.getElementById('helpOverlay').classList.add('open')">Нужна помощь?</button>
+      <a class="nav-wa" href="https://wa.me/971589300286" target="_blank">💬 WhatsApp</a>
+      <a class="nav-login" href="/student.html">Войти</a>
     </div>
   </nav>
   <div class="hero-content">
-    <div class="hero-label" data-i18n="heroLabel">Лаборатория искусственного интеллекта</div>
+    <div class="hero-label">Лаборатория искусственного интеллекта</div>
     <h1 class="hero-title">ALIEV <span class="ai">AI</span> LAB</h1>
-    <p class="hero-sub" data-i18n="heroSub">Освой искусственный интеллект и создавай фото, видео и рекламу нового поколения</p>
+    <p class="hero-sub">Освой искусственный интеллект и создавай фото, видео и рекламу нового поколения</p>
     <div class="hero-btns">
-      <button class="btn-start" onclick="document.getElementById('pricingOverlay').classList.add('open')" data-i18n="tariffs">ТАРИФЫ &nbsp;→</button>
-      <a href="#modules-section" class="btn-prog" data-i18n="program">Смотреть программу</a>
+      <button class="btn-start" onclick="document.getElementById('pricingOverlay').classList.add('open')">ТАРИФЫ &nbsp;→</button>
+      <a href="#modules-section" class="btn-prog">Смотреть программу</a>
     </div>
     <button id="soundBtn" onclick="toggleMusic()" style="margin-top:1.8rem;display:inline-flex;align-items:center;gap:8px;background:rgba(10,22,35,0.5);border:1px solid rgba(78,205,196,0.25);border-radius:30px;padding:8px 20px;cursor:pointer;color:rgba(78,205,196,0.7);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-family:inherit;transition:all 0.3s;backdrop-filter:blur(8px);">
       <span id="soundIcon" style="font-size:15px">🔇</span>
-      <span id="soundLabel" data-i18n="soundOn">Включить звук</span>
+      <span id="soundLabel">Включить звук</span>
     </button>
   </div>
   <div class="marquee-section">
@@ -316,32 +308,32 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
 <section class="about-section">
   <div class="about-inner">
     <div>
-      <div class="about-label" data-i18n="aboutLabel">О платформе</div>
-      <h2 class="about-title" data-i18n="aboutTitle">Мы учим создавать контент, который невозможно отличить от реального</h2>
-      <p class="about-text" data-i18n="aboutText1">ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.</p>
-      <p class="about-text" data-i18n="aboutText2">За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.</p>
+      <div class="about-label">О платформе</div>
+      <h2 class="about-title">Мы учим создавать контент, который невозможно отличить от реального</h2>
+      <p class="about-text">ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.</p>
+      <p class="about-text">За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.</p>
       <div class="about-stats">
-        <div class="stat-item"><div class="stat-num">30</div><div class="stat-label" data-i18n="stat1">дней обучения</div></div>
-        <div class="stat-item"><div class="stat-num">7</div><div class="stat-label" data-i18n="stat2">модулей курса</div></div>
-        <div class="stat-item"><div class="stat-num">6</div><div class="stat-label" data-i18n="stat3">месяцев доступа</div></div>
+        <div class="stat-item"><div class="stat-num">30</div><div class="stat-label">дней обучения</div></div>
+        <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">модулей курса</div></div>
+        <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">доступ к материалам</div></div>
       </div>
     </div>
     <div class="about-features">
       <div class="feat-item">
         <div class="feat-icon">🎯</div>
-        <div><div class="feat-title" data-i18n="feat1t">Практический подход</div><div class="feat-desc" data-i18n="feat1d">Каждый урок содержит реальные задания — вы сразу применяете знания на практике</div></div>
+        <div><div class="feat-title">Практический подход</div><div class="feat-desc">Каждый урок содержит реальные задания — вы сразу применяете знания на практике</div></div>
       </div>
       <div class="feat-item">
         <div class="feat-icon">⚡</div>
-        <div><div class="feat-title" data-i18n="feat2t">Актуальные инструменты</div><div class="feat-desc" data-i18n="feat2d">Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs и другие топовые AI-инструменты 2026 года</div></div>
+        <div><div class="feat-title">Актуальные инструменты</div><div class="feat-desc">Midjourney, Runway, Sora, ChatGPT и другие топовые AI-инструменты 2025 года</div></div>
       </div>
       <div class="feat-item">
         <div class="feat-icon">🌐</div>
-        <div><div class="feat-title" data-i18n="feat3t">Доступ откуда угодно</div><div class="feat-desc" data-i18n="feat3d">Учитесь с телефона или компьютера в любое удобное время без ограничений</div></div>
+        <div><div class="feat-title">Доступ откуда угодно</div><div class="feat-desc">Учитесь с телефона или компьютера в любое удобное время без ограничений</div></div>
       </div>
       <div class="feat-item">
         <div class="feat-icon">🏆</div>
-        <div><div class="feat-title" data-i18n="feat4t">Сертификат</div><div class="feat-desc" data-i18n="feat4d">По окончании курса вы получаете сертификат о прохождении обучения</div></div>
+        <div><div class="feat-title">Сертификат</div><div class="feat-desc">По окончании курса вы получаете сертификат о прохождении обучения</div></div>
       </div>
     </div>
   </div>
@@ -352,38 +344,122 @@ footer { padding: 3.5rem 3rem; display: grid; grid-template-columns: repeat(auto
   <div class="modules-inner">
     <div class="modules-header">
       <div class="modules-line"></div>
-      <div class="modules-title" data-i18n="modulesTitle">Что вас ждёт</div>
+      <div class="modules-title">Что вас ждёт</div>
       <div class="modules-line"></div>
     </div>
     <div class="modules-grid">
-      <a class="mod-card"><span class="mod-num">01</span><span class="mod-name" data-i18n="mod1">Знакомство с ИИ</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">02</span><span class="mod-name" data-i18n="mod2">Как общаться с ИИ</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">03</span><span class="mod-name" data-i18n="mod3">Реалистичные фото</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">04</span><span class="mod-name" data-i18n="mod4">Видео и анимация</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">05</span><span class="mod-name" data-i18n="mod5">Монтаж и обработка</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card"><span class="mod-num">06</span><span class="mod-name" data-i18n="mod6">Идеи и творчество</span><span class="mod-arrow">→</span></a>
-      <a class="mod-card full-width"><span class="mod-num">07</span><span class="mod-name" data-i18n="mod7">Итоги и следующий шаг</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">01</span><span class="mod-name">Знакомство с ИИ</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">02</span><span class="mod-name">Как общаться с ИИ</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">03</span><span class="mod-name">Реалистичные фото</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">04</span><span class="mod-name">Видео и анимация</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">05</span><span class="mod-name">Монтаж и обработка</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card"><span class="mod-num">06</span><span class="mod-name">Идеи и творчество</span><span class="mod-arrow">→</span></a>
+      <a class="mod-card full-width"><span class="mod-num">07</span><span class="mod-name">Итоги и следующий шаг</span><span class="mod-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Почему я -->
+<section style="padding:6rem 3rem;background:#03090f;border-top:1px solid rgba(78,205,196,0.08);position:relative;overflow:hidden;">
+
+  <!-- Фон фото 1 -->
+  <div style="position:absolute;inset:0;background-image:url('photo-bg.jpg');background-size:cover;background-position:center;opacity:0.06;pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:2;max-width:1000px;margin:0 auto;">
+
+    <!-- Заголовок -->
+    <div style="text-align:center;margin-bottom:4rem;">
+      <div style="font-size:10px;letter-spacing:0.35em;color:rgba(78,205,196,0.45);text-transform:uppercase;margin-bottom:1rem;">Об авторе</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,56px);font-weight:300;color:#c8d8e0;line-height:1.2;">Почему именно я?</h2>
+    </div>
+
+    <!-- Контент -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+
+      <!-- Левая — фото + сертификат -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(78,205,196,0.2);">
+          <img src="photo-author.jpg" alt="Aibek Aliev" style="width:100%;display:block;filter:grayscale(20%);">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,13,20,0.6) 0%,transparent 60%);"></div>
+          <div style="position:absolute;bottom:16px;left:16px;">
+            <div style="font-size:16px;color:#c8d8e0;font-weight:500;">Aibek Aliev</div>
+            <div style="font-size:11px;color:rgba(78,205,196,0.7);letter-spacing:0.1em;">AI-эксперт · Дубай</div>
+          </div>
+        </div>
+        <!-- Сертификат -->
+        <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(78,205,196,0.15);position:relative;">
+          <img src="certificate.jpg" alt="Hugency Academy Certificate" style="width:100%;display:block;opacity:0.9;">
+          <div style="position:absolute;top:10px;right:10px;background:rgba(78,205,196,0.15);border:1px solid rgba(78,205,196,0.4);border-radius:6px;padding:4px 10px;font-size:10px;color:#4ecdc4;letter-spacing:0.1em;">✓ СЕРТИФИКАТ</div>
+        </div>
+      </div>
+
+      <!-- Правая — текст -->
+      <div style="display:flex;flex-direction:column;gap:2rem;">
+
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,26px);font-weight:300;color:#c8d8e0;line-height:1.5;">"Я сам прошёл этот путь — заплатил $2500 за индивидуальный курс в Дубае, чтобы освоить ИИ на профессиональном уровне."</p>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:flex-start;gap:14px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(78,205,196,0.1);border:1px solid rgba(78,205,196,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">🎓</div>
+            <div>
+              <div style="font-size:14px;color:#c0dce4;font-weight:500;margin-bottom:3px;">Обучался в Hugency Academy, Дубай</div>
+              <div style="font-size:12px;color:#3a5a68;line-height:1.6;">Индивидуальный курс «Creating hyper-realistic content with AI» — октябрь-ноябрь 2025</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(78,205,196,0.1);border:1px solid rgba(78,205,196,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">💡</div>
+            <div>
+              <div style="font-size:14px;color:#c0dce4;font-weight:500;margin-bottom:3px;">Те же знания — в 5-25 раз доступнее</div>
+              <div style="font-size:12px;color:#3a5a68;line-height:1.6;">Я решил передать всё что узнал, чтобы каждый мог освоить ИИ и начать зарабатывать на нём</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(78,205,196,0.1);border:1px solid rgba(78,205,196,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">🛠️</div>
+            <div>
+              <div style="font-size:14px;color:#c0dce4;font-weight:500;margin-bottom:3px;">Практик, не теоретик</div>
+              <div style="font-size:12px;color:#3a5a68;line-height:1.6;">Midjourney, ChatGPT, Kling AI, Higgsfield, HeyGen, ElevenLabs, Suno — всё это я использую каждый день</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Статы -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1rem;">
+          <div style="text-align:center;padding:16px;background:rgba(10,22,35,0.6);border:1px solid rgba(78,205,196,0.12);border-radius:10px;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#73ecff;font-weight:300;">$2500</div>
+            <div style="font-size:10px;color:#3a5a68;margin-top:4px;letter-spacing:0.05em;">заплатил за обучение</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(10,22,35,0.6);border:1px solid rgba(78,205,196,0.12);border-radius:10px;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#73ecff;font-weight:300;">10+</div>
+            <div style="font-size:10px;color:#3a5a68;margin-top:4px;letter-spacing:0.05em;">AI-инструментов</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(10,22,35,0.6);border:1px solid rgba(78,205,196,0.12);border-radius:10px;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#73ecff;font-weight:300;">7</div>
+            <div style="font-size:10px;color:#3a5a68;margin-top:4px;letter-spacing:0.05em;">модулей курса</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-col">
-    <h5 data-i18n="footerAbout">О платформе</h5>
-    <a href="/oferta.html" data-i18n="oferta">Публичная оферта</a>
-    <a href="/privacy.html" data-i18n="privacy">Политика конфиденциальности</a>
+    <h5>О платформе</h5>
+    <a href="/oferta.html">Публичная оферта</a>
+    <a href="/privacy.html">Политика конфиденциальности</a>
   </div>
   <div class="footer-col">
-    <h5 data-i18n="footerContacts">Контакты</h5>
+    <h5>Контакты</h5>
     <a href="mailto:vashdrugdubai@gmail.com">vashdrugdubai@gmail.com</a>
     <a href="https://wa.me/971589300286">+971 589 300 286</a>
   </div>
   <div class="footer-col">
-    <h5 data-i18n="footerSocial">Соцсети</h5>
+    <h5>Соцсети</h5>
     <a href="https://instagram.com/alievkgz" target="_blank">instagram.com/alievkgz</a>
   </div>
 </footer>
-<div class="footer-bottom" data-i18n="copyright">© 2026 ALIEV AI Lab. Все права защищены.</div>
+<div class="footer-bottom">© 2026 ALIEV AI Lab. Все права защищены.</div>
 
 <script>
 (function () {
@@ -419,8 +495,7 @@ function toggleMusic() {
     _music.play().then(() => {
       _playing = true;
       icon.textContent = '🔊';
-      label.setAttribute('data-i18n', 'soundOff');
-      label.textContent = (translations[localStorage.getItem('lang')||'ru']||translations.ru).soundOff;
+      label.textContent = 'Выключить звук';
       btn.style.color = 'rgba(78,205,196,1)';
       btn.style.borderColor = 'rgba(78,205,196,0.6)';
       let v = 0;
@@ -429,120 +504,13 @@ function toggleMusic() {
   } else {
     _playing = false;
     icon.textContent = '🔇';
-    label.setAttribute('data-i18n', 'soundOn');
-    label.textContent = (translations[localStorage.getItem('lang')||'ru']||translations.ru).soundOn;
+    label.textContent = 'Включить звук';
     btn.style.color = 'rgba(78,205,196,0.5)';
     btn.style.borderColor = 'rgba(78,205,196,0.25)';
     let v = _music.volume;
     const t = setInterval(() => { v = Math.max(v-0.02,0); _music.volume=v; if(v<=0){_music.pause();clearInterval(t);} }, 60);
   }
 }
-</script>
-<script>
-const translations = {
-  ru: {
-    help: 'Нужна помощь?', login: 'Войти',
-    heroLabel: 'Лаборатория искусственного интеллекта',
-    heroSub: 'Освой искусственный интеллект и создавай фото, видео и рекламу нового поколения',
-    tariffs: 'ТАРИФЫ →', program: 'Смотреть программу',
-    aboutLabel: 'О платформе',
-    aboutTitle: 'Мы учим создавать контент, который невозможно отличить от реального',
-    aboutText1: 'ALIEV AI Lab — это онлайн-школа нового поколения, где вы освоите самые мощные инструменты искусственного интеллекта. Мы не просто даём теорию — мы ведём вас через практику к реальным результатам.',
-    aboutText2: 'За 30 дней вы пройдёте путь от нуля до уровня, когда сможете создавать профессиональные изображения, видео и рекламные материалы с помощью ИИ.',
-    stat1: 'дней обучения', stat2: 'модулей курса', stat3: 'месяцев доступа',
-    feat1t: 'Практический подход', feat1d: 'Каждый урок содержит реальные задания — вы сразу применяете знания на практике',
-    feat2t: 'Актуальные инструменты', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs и другие топовые AI-инструменты 2026 года',
-    feat3t: 'Доступ откуда угодно', feat3d: 'Учитесь с телефона или компьютера в любое удобное время без ограничений',
-    feat4t: 'Сертификат', feat4d: 'По окончании курса вы получаете сертификат о прохождении обучения',
-    modulesTitle: 'Что вас ждёт',
-    mod1: 'Знакомство с ИИ', mod2: 'Как общаться с ИИ', mod3: 'Реалистичные фото',
-    mod4: 'Видео и анимация', mod5: 'Монтаж и обработка', mod6: 'Идеи и творчество', mod7: 'Итоги и следующий шаг',
-    footerAbout: 'О платформе', oferta: 'Публичная оферта', privacy: 'Политика конфиденциальности',
-    footerContacts: 'Контакты', footerSocial: 'Соцсети',
-    copyright: '© 2026 ALIEV AI Lab. Все права защищены.',
-    soundOn: 'Включить звук', soundOff: 'Выключить звук',
-    helpReady: 'Мы всегда готовы помочь!', helpContact: '💬 По вопросам обучения и оплаты:', helpSocial: '📸 Мы в соцсетях:', helpTime: 'Обычное время ответа: 15–30 минут',
-    pricingTitle: 'Выберите тариф', pricingSub: 'Единоразовая оплата — без подписки и сохранения данных карты',
-    popular: 'Популярный',
-    stdDesc: 'Всё необходимое для старта', stdF1: 'Все 7 модулей курса', stdF2: 'Доступ к урокам 24/7', stdF3: 'Обновления курса', stdF4: 'Доступ с телефона и компьютера', stdF5: 'Сертификат о прохождении', buyStd: 'Купить — $105',
-    proDesc: 'Максимальный результат', proF1: 'Всё из Standard', proF2: 'Проверка домашних заданий', proF3: 'Дополнительные AI-инструменты', proF4: 'Готовые промпты и шаблоны', proF5: 'Закрытый чат учеников', proF6: 'Приоритетная поддержка', buyPro: 'Купить — $205',
-    indDesc: 'Персональный подход', indF1: 'Всё из Pro', indF2: 'Индивидуальное сопровождение', indF3: 'Персональная консультация', indF4: 'Разбор проектов 1 на 1', indF5: 'Помощь в запуске первых заказов', indF6: 'Личный план развития в AI', buyInd: 'Купить — $500',
-    payTitle: 'Способы оплаты', payWa: '💬 Перевод через WhatsApp', payNote: 'Разовая оплата — данные карты не сохраняются.<br>Для оплаты через перевод напишите нам в WhatsApp.'
-  },
-  ky: {
-    help: 'Жардам керекпи?', login: 'Кирүү',
-    heroLabel: 'Жасалма интеллект лабораториясы',
-    heroSub: 'Жасалма интеллектти өздөштүр жана жаңы муундун сүрөт, видео жана жарнамасын жасагын',
-    tariffs: 'ТАРИФТЕР →', program: 'Программаны көрүү',
-    aboutLabel: 'Платформа жөнүндө',
-    aboutTitle: 'Биз чыныгыдан айырмалоо мүмкүн болбогон контент жасоону үйрөтөбүз',
-    aboutText1: 'ALIEV AI Lab — жаңы муундун онлайн мектеби. Бул жерде сиз жасалма интеллекттин эң күчтүү куралдарын өздөштүрөсүз. Биз теория гана бербейбиз — практика аркылуу чыныгы натыйжага жетебиз.',
-    aboutText2: '30 күн ичинде сиз нөлдөн профессионал деңгээлге чыгасыз жана ЖИ жардамы менен сүрөт, видео жана жарнамалык материалдарды жасай аласыз.',
-    stat1: 'күн окуу', stat2: 'модул', stat3: 'ай кирүү',
-    feat1t: 'Практикалык ыкма', feat1d: 'Ар бир сабакта реалдуу тапшырмалар бар — билимди дароо колдонуп баштайсыз',
-    feat2t: 'Актуалдуу куралдар', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs жана 2026-жылдын башка топ ЖИ куралдары',
-    feat3t: 'Каада жерден кирүү', feat3d: 'Телефонуңуздан же компьютерден каада убакта чектөөсүз окуңуз',
-    feat4t: 'Сертификат', feat4d: 'Курсту аяктагандан кийин окуу сертификатын аласыз',
-    modulesTitle: 'Сизди эмне күтөт',
-    mod1: 'ЖИ менен таанышуу', mod2: 'ЖИ менен кантип сүйлөшүү', mod3: 'Реалдуу сүрөттөр',
-    mod4: 'Видео жана анимация', mod5: 'Монтаж жана иштетүү', mod6: 'Идеялар жана чыгармачылык', mod7: 'Жыйынтыктар жана кийинки кадам',
-    footerAbout: 'Платформа жөнүндө', oferta: 'Коомдук оферта', privacy: 'Купуялык саясаты',
-    footerContacts: 'Байланыш', footerSocial: 'Социалдык тармактар',
-    copyright: '© 2026 ALIEV AI Lab. Бардык укуктар корголгон.',
-    soundOn: 'Үн күйгүзүү', soundOff: 'Үн өчүрүү',
-    helpReady: 'Биз дайыма жардам берүүгө даярбыз!', helpContact: '💬 Окуу жана төлөм боюнча:', helpSocial: '📸 Биз социалдык тармактарда:', helpTime: 'Жооп берүү убактысы: 15–30 мүнөт',
-    pricingTitle: 'Тариф тандаңыз', pricingSub: 'Бир жолку төлөм — жазылуу жана карта маалыматтарын сактоосуз',
-    popular: 'Популярдуу',
-    stdDesc: 'Башталышка керек болгондун баары', stdF1: 'Курстун 7 модулунун баары', stdF2: 'Сабактарга 24/7 кирүү', stdF3: 'Курс жаңыртуулары', stdF4: 'Телефон жана компьютерден кирүү', stdF5: 'Өтүү сертификаты', buyStd: 'Сатып алуу — $105',
-    proDesc: 'Максималдуу натыйжа', proF1: 'Standardдан баары', proF2: 'Үй тапшырмаларын текшерүү', proF3: 'Кошумча AI куралдары', proF4: 'Даяр промпттар жана шаблондор', proF5: 'Жабык окуучулар чаты', proF6: 'Артыкчылыктуу колдоо', buyPro: 'Сатып алуу — $205',
-    indDesc: 'Жекече мамиле', indF1: 'Proдон баары', indF2: 'Жекече коштоо', indF3: 'Жекече консультация', indF4: 'Долбоорлорду 1га1 талдоо', indF5: 'Биринчи буйрутмаларды ишке киргизүүдө жардам', indF6: 'AIда өнүгүүнүн жеке планы', buyInd: 'Сатып алуу — $500',
-    payTitle: 'Төлөм ыкмалары', payWa: '💬 WhatsApp аркылуу которуу', payNote: 'Бир жолку төлөм — карта маалыматтары сакталбайт.<br>Которуу аркылуу төлөм үчүн бизге WhatsAppка жазыңыз.'
-  },
-  en: {
-    help: 'Need help?', login: 'Sign in',
-    heroLabel: 'Artificial Intelligence Laboratory',
-    heroSub: 'Master AI and create photos, videos and next-generation ads',
-    tariffs: 'PRICING →', program: 'View program',
-    aboutLabel: 'About platform',
-    aboutTitle: 'We teach you to create content indistinguishable from reality',
-    aboutText1: 'ALIEV AI Lab is a next-generation online school where you will master the most powerful artificial intelligence tools. We don\'t just give theory — we guide you through practice to real results.',
-    aboutText2: 'In 30 days you will go from zero to creating professional images, videos and advertising materials using AI.',
-    stat1: 'days of learning', stat2: 'course modules', stat3: 'months access',
-    feat1t: 'Practical approach', feat1d: 'Every lesson contains real tasks — you apply knowledge immediately',
-    feat2t: 'Current tools', feat2d: 'Midjourney, Seedance, Higgsfield, ChatGPT, HeyGen, ElevenLabs and other top AI tools of 2026',
-    feat3t: 'Access from anywhere', feat3d: 'Learn from your phone or computer at any convenient time without restrictions',
-    feat4t: 'Certificate', feat4d: 'Upon completion of the course you receive a certificate',
-    modulesTitle: 'What awaits you',
-    mod1: 'Introduction to AI', mod2: 'How to communicate with AI', mod3: 'Realistic photos',
-    mod4: 'Video and animation', mod5: 'Editing and processing', mod6: 'Ideas and creativity', mod7: 'Results and next step',
-    footerAbout: 'About', oferta: 'Public offer', privacy: 'Privacy policy',
-    footerContacts: 'Contacts', footerSocial: 'Social media',
-    copyright: '© 2026 ALIEV AI Lab. All rights reserved.',
-    soundOn: 'Enable sound', soundOff: 'Disable sound',
-    helpReady: 'We are always ready to help!', helpContact: '💬 For questions about training and payment:', helpSocial: '📸 We are on social media:', helpTime: 'Usual response time: 15–30 minutes',
-    pricingTitle: 'Choose a plan', pricingSub: 'One-time payment — no subscription or card data stored',
-    popular: 'Popular',
-    stdDesc: 'Everything you need to start', stdF1: 'All 7 course modules', stdF2: 'Access to lessons 24/7', stdF3: 'Course updates', stdF4: 'Access from phone and computer', stdF5: 'Completion certificate', buyStd: 'Buy — $105',
-    proDesc: 'Maximum result', proF1: 'Everything from Standard', proF2: 'Homework review', proF3: 'Additional AI tools', proF4: 'Ready-made prompts and templates', proF5: 'Private student chat', proF6: 'Priority support', buyPro: 'Buy — $205',
-    indDesc: 'Personal approach', indF1: 'Everything from Pro', indF2: 'Individual mentoring', indF3: 'Personal consultation', indF4: 'Project review 1 on 1', indF5: 'Help launching first orders', indF6: 'Personal AI development plan', buyInd: 'Buy — $500',
-    payTitle: 'Payment methods', payWa: '💬 Transfer via WhatsApp', payNote: 'One-time payment — card data is not stored.<br>For payment via transfer, write to us on WhatsApp.'
-  }
-};
-
-function setLang(lang) {
-  const t = translations[lang];
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
-  });
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
-  localStorage.setItem('lang', lang);
-}
-
-// Восстановить язык при загрузке
-const savedLang = localStorage.getItem('lang');
-if (savedLang && savedLang !== 'ru') setLang(savedLang);
 </script>
 </body>
 </html>
