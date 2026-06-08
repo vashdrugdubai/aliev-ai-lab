@@ -19,7 +19,7 @@ class KvartiradxbApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'KVARTIRADXB',
+      title: 'КВАРТИРА ОАЭ',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -138,14 +138,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadListings() async {
-    final data = await supabase
-        .from('listings')
-        .select()
-        .order('created_at', ascending: false);
-    setState(() {
-      _listings = List<Map<String, dynamic>>.from(data);
-      _loading = false;
-    });
+    try {
+      final data = await supabase
+          .from('listings')
+          .select()
+          .order('created_at', ascending: false);
+      setState(() {
+        _listings = List<Map<String, dynamic>>.from(data);
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() => _loading = false);
+      debugPrint('Ошибка загрузки объявлений: $e');
+    }
   }
 
   List<Map<String, dynamic>> get _filteredListings {
@@ -226,14 +231,14 @@ class _HomeScreenState extends State<HomeScreen> {
               RichText(
                 text: const TextSpan(children: [
                   TextSpan(
-                      text: 'KVARTIRA',
+                      text: 'КВАРТИРА',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1)),
                   TextSpan(
-                      text: 'DXB',
+                      text: ' ОАЭ',
                       style: TextStyle(
                           color: Color(0xFF7EB8E8),
                           fontSize: 20,
@@ -247,8 +252,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.15),
                     shape: BoxShape.circle),
-                child: const Icon(Icons.notifications_outlined,
-                    color: Colors.white, size: 20),
+                child: GestureDetector(
+                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Уведомления — скоро')),
+                  ),
+                  child: const Icon(Icons.notifications_outlined,
+                      color: Colors.white, size: 20),
+                ),
               ),
             ],
           ),
@@ -1123,10 +1133,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await supabase.auth.signOut();
   }
 
+  String _getInitials() {
+    final email = _user?.email ?? '';
+    if (email.isNotEmpty) return email.substring(0, 2).toUpperCase();
+    final phone = _user?.phone ?? '';
+    if (phone.length >= 4) return phone.substring(phone.length - 4);
+    return '?';
+  }
+
+  String _getDisplayName() {
+    final email = _user?.email ?? '';
+    if (email.isNotEmpty) return email;
+    return _user?.phone ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = _user != null;
-    final phone = _user?.phone ?? '';
 
     return Scaffold(
       backgroundColor: const Color(0xFFF0F4F8),
@@ -1165,9 +1188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: isLoggedIn
                       ? Center(
                           child: Text(
-                            phone.length >= 4
-                                ? phone.substring(phone.length - 4)
-                                : '?',
+                                    _getInitials(),
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -1179,7 +1200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  isLoggedIn ? phone : 'Войдите в аккаунт',
+                  isLoggedIn ? _getDisplayName() : 'Войдите в аккаунт',
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -1203,7 +1224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Expanded(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
@@ -1231,12 +1252,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   if (isLoggedIn) ...[
-                    _menuItem(Icons.home_outlined, 'Мои объявления'),
-                    _menuItem(Icons.favorite_border, 'Избранное'),
+                    _menuItem(Icons.home_outlined, 'Мои объявления', onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Мои объявления — скоро')),
+                      );
+                    }),
+                    _menuItem(Icons.favorite_border, 'Избранное', onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Избранное — скоро')),
+                      );
+                    }),
                   ],
                   _menuItem(Icons.calculate_outlined,
-                      'Калькулятор (30% от зарплаты)'),
-                  _menuItem(Icons.info_outline, 'О приложении'),
+                      'Калькулятор (30% от зарплаты)', onTap: () => _showCalculator()),
+                  _menuItem(Icons.info_outline, 'О приложении', onTap: () => _showAbout()),
                   if (isLoggedIn) ...[
                     const SizedBox(height: 8),
                     SizedBox(
@@ -1265,20 +1294,168 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _menuItem(IconData icon, String label) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
+  void _showCalculator() {
+    final salaryController = TextEditingController();
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return StatefulBuilder(builder: (ctx, setModalState) {
+          double? salary = double.tryParse(salaryController.text);
+          double? budget = salary != null ? salary * 0.3 : null;
+          return Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            padding: EdgeInsets.only(
+              top: 24, left: 24, right: 24,
+              bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Калькулятор жилья',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF223344))),
+                const SizedBox(height: 6),
+                const Text('30% от зарплаты — рекомендуемый бюджет на аренду',
+                    style: TextStyle(fontSize: 13, color: Color(0xFF889aaa))),
+                const SizedBox(height: 20),
+                const Text('Ваша зарплата (AED/месяц)',
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF445566))),
+                const SizedBox(height: 8),
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF0F4F8),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFFDDE4ED)),
+                  ),
+                  child: TextField(
+                    controller: salaryController,
+                    keyboardType: TextInputType.number,
+                    autofocus: true,
+                    onChanged: (_) => setModalState(() {}),
+                    decoration: const InputDecoration(
+                      hintText: 'Например: 8000',
+                      hintStyle: TextStyle(color: Color(0xFFAABBCC)),
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                      suffixText: 'AED',
+                      suffixStyle: TextStyle(color: Color(0xFF889aaa)),
+                    ),
+                  ),
+                ),
+                if (budget != null) ...[
+                  const SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE3EEF8),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text('Рекомендуемый бюджет на жильё',
+                            style: TextStyle(
+                                fontSize: 13, color: Color(0xFF445566))),
+                        const SizedBox(height: 6),
+                        Text('${budget.toStringAsFixed(0)} AED / месяц',
+                            style: const TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF2B4B6F))),
+                      ],
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 16),
+              ],
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  void _showAbout() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        title: RichText(
+          text: const TextSpan(children: [
+            TextSpan(
+                text: 'КВАРТИРА',
+                style: TextStyle(
+                    color: Color(0xFF2B4B6F),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700)),
+            TextSpan(
+                text: ' ОАЭ',
+                style: TextStyle(
+                    color: Color(0xFF7EB8E8),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700)),
+          ]),
+        ),
+        content: const Text(
+          'Приложение для поиска комнат, койко-мест и квартир в Дубае.\n\nСоздано специально для граждан СНГ и русскоязычного сообщества ОАЭ.\n\nВерсия 1.0.0',
+          style: TextStyle(fontSize: 14, color: Color(0xFF445566), height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK',
+                style: TextStyle(
+                    color: Color(0xFF2B4B6F), fontWeight: FontWeight.w600)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _menuItem(IconData icon, String label, {VoidCallback? onTap}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Material(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFDDE4ED)),
-      ),
-      child: ListTile(
-        leading: Icon(icon, color: const Color(0xFF2B4B6F)),
-        title: Text(label,
-            style: const TextStyle(fontSize: 14, color: Color(0xFF334455))),
-        trailing: const Icon(Icons.chevron_right,
-            color: Color(0xFFAABBCC)),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          splashColor: const Color(0xFFE3EEF8),
+          highlightColor: const Color(0xFFE3EEF8),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: const Color(0xFFDDE4ED)),
+            ),
+            child: Row(
+              children: [
+                Icon(icon, color: const Color(0xFF2B4B6F), size: 22),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(label,
+                      style: const TextStyle(
+                          fontSize: 14, color: Color(0xFF334455))),
+                ),
+                const Icon(Icons.chevron_right,
+                    color: Color(0xFFAABBCC), size: 18),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -1314,7 +1491,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     }
     setState(() => _loading = true);
     try {
-      await supabase.auth.signInWithOtp(email: email);
+      await supabase.auth.signInWithOtp(
+        email: email,
+        shouldCreateUser: true,
+      );
       if (mounted) {
         Navigator.push(
           context,
@@ -1456,6 +1636,245 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 }
 
 // ─────────────────────────────────────────────
+// ЭКРАН ВХОДА — ТЕЛЕФОН
+// ─────────────────────────────────────────────
+class PhoneAuthScreen extends StatefulWidget {
+  const PhoneAuthScreen({super.key});
+
+  @override
+  State<PhoneAuthScreen> createState() => _PhoneAuthScreenState();
+}
+
+class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
+  final _phoneController = TextEditingController();
+  String _countryCode = '+971';
+  bool _loading = false;
+
+  final List<Map<String, String>> _countries = const [
+    {'code': '+971', 'flag': '🇦🇪', 'name': 'ОАЭ'},
+    {'code': '+7',   'flag': '🇷🇺', 'name': 'Россия'},
+    {'code': '+380', 'flag': '🇺🇦', 'name': 'Украина'},
+    {'code': '+996', 'flag': '🇰🇬', 'name': 'Кыргызстан'},
+    {'code': '+998', 'flag': '🇺🇿', 'name': 'Узбекистан'},
+    {'code': '+992', 'flag': '🇹🇯', 'name': 'Таджикистан'},
+    {'code': '+994', 'flag': '🇦🇿', 'name': 'Азербайджан'},
+    {'code': '+374', 'flag': '🇦🇲', 'name': 'Армения'},
+    {'code': '+995', 'flag': '🇬🇪', 'name': 'Грузия'},
+    {'code': '+1',   'flag': '🇺🇸', 'name': 'США / Канада'},
+  ];
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _sendOtp() async {
+    final local = _phoneController.text.trim().replaceAll(RegExp(r'\s+'), '');
+    if (local.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Введите номер телефона')),
+      );
+      return;
+    }
+    final fullPhone = '$_countryCode$local';
+    setState(() => _loading = true);
+    try {
+      await supabase.auth.signInWithOtp(phone: fullPhone);
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => OtpScreen(contact: fullPhone, isEmail: false)),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Ошибка: $e')),
+        );
+      }
+    }
+    if (mounted) setState(() => _loading = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedCountry = _countries.firstWhere(
+        (c) => c['code'] == _countryCode,
+        orElse: () => _countries.first);
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF0F4F8),
+      body: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF2B4B6F), Color(0xFF1a3a5c)],
+              ),
+            ),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 8,
+                left: 8,
+                right: 16,
+                bottom: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                ),
+                const SizedBox(height: 8),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text('Войти',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700)),
+                ),
+                const SizedBox(height: 6),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text('Введите номер — пришлём SMS с кодом',
+                      style: TextStyle(
+                          color: Color(0xFFAAD4F5), fontSize: 14)),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 4),
+                  const Text('Страна',
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF445566))),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: const Color(0xFFDDE4ED)),
+                    ),
+                    child: DropdownButton<String>(
+                      value: _countryCode,
+                      isExpanded: true,
+                      underline: const SizedBox(),
+                      onChanged: (val) => setState(() => _countryCode = val!),
+                      items: _countries.map((c) {
+                        return DropdownMenuItem(
+                          value: c['code'],
+                          child: Text(
+                              '${c['flag']}  ${c['name']}  (${c['code']})',
+                              style: const TextStyle(fontSize: 14)),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Номер телефона',
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF445566))),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: const Color(0xFFDDE4ED)),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 16),
+                          decoration: const BoxDecoration(
+                            border: Border(
+                                right: BorderSide(color: Color(0xFFDDE4ED))),
+                          ),
+                          child: Text(
+                            '${selectedCountry['flag']}  ${selectedCountry['code']}',
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF2B4B6F)),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: _phoneController,
+                            keyboardType: TextInputType.phone,
+                            style: const TextStyle(
+                                fontSize: 16, color: Color(0xFF223344)),
+                            decoration: const InputDecoration(
+                              hintText: '50 123 4567',
+                              hintStyle:
+                                  TextStyle(color: Color(0xFFAABBCC)),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 14, vertical: 16),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _loading ? null : _sendOtp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2B4B6F),
+                        foregroundColor: Colors.white,
+                        padding:
+                            const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                      ),
+                      child: _loading
+                          ? const SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                  color: Colors.white, strokeWidth: 2.5))
+                          : const Text('Получить код',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Center(
+                    child: Text(
+                      'Отправим SMS с кодом подтверждения.',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 12, color: Color(0xFF889aaa)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
 // ЭКРАН OTP
 // ─────────────────────────────────────────────
 class OtpScreen extends StatefulWidget {
@@ -1481,7 +1900,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void _startCountdown() {
-    _countdown = 60;
+    _countdown = 30;
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) {
