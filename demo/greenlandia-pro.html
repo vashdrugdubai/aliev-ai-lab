@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GREENLANDIA — Искусство покоя</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --bg: #0a0908;
+  --cream: #ede6d8;
+  --sand: #c4b59a;
+  --gold: #c9a96e;
+  --text-soft: #8a8270;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+body::after {
+  content:''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.035;
+}
+
+/* Progress bar */
+.progress {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: var(--gold); z-index: 200;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 150;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.8rem 3rem; mix-blend-mode: difference;
+}
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; letter-spacing: 0.3em; color: #fff; }
+.nav-cta {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.4);
+  padding: 10px 24px; transition: all 0.3s;
+}
+.nav-cta:hover { background: #fff; color: #000; }
+
+/* PINNED SCENES */
+.scene {
+  height: 100vh; width: 100%;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center;
+}
+.scene-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  will-change: transform;
+}
+.scene-tint { position: absolute; inset: 0; }
+
+.scene-content {
+  position: relative; z-index: 5;
+  padding: 0 6vw; width: 100%;
+  will-change: transform, opacity;
+}
+.scene-label {
+  font-size: 11px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 14px;
+}
+.scene-label::before { content:''; width: 40px; height: 1px; background: var(--gold); }
+.scene-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 7vw, 130px);
+  font-weight: 300; line-height: 0.95; color: var(--cream);
+  max-width: 14ch;
+}
+.scene-title em { font-style: italic; color: var(--gold); }
+.scene-desc {
+  font-size: clamp(14px,1.4vw,17px); color: var(--cream);
+  max-width: 380px; line-height: 1.9; margin-top: 2rem;
+  opacity: 0.85;
+}
+.text-right { text-align: right; margin-left: auto; }
+.text-right .scene-label { justify-content: flex-end; }
+.text-right .scene-label::before { display: none; }
+.text-right .scene-label::after { content:''; width: 40px; height: 1px; background: var(--gold); }
+.text-right .scene-title, .text-right .scene-desc { margin-left: auto; }
+.text-center { text-align: center; }
+.text-center .scene-content-inner { margin: 0 auto; }
+.text-center .scene-label { justify-content: center; }
+.text-center .scene-title { max-width: none; }
+
+/* HERO specifics */
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  z-index: 10; font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--cream); display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.hero-scroll::after { content:''; width: 1px; height: 45px; background: linear-gradient(var(--gold),transparent); }
+
+/* Big quote interlude */
+.interlude {
+  min-height: 100vh; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 2rem; position: relative;
+}
+.interlude-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5.5vw, 90px); font-weight: 300;
+  line-height: 1.15; color: var(--cream); max-width: 16ch;
+}
+.interlude-text em { font-style: italic; color: var(--gold); }
+.interlude .word { display: inline-block; opacity: 0.12; transition: opacity 0.3s; }
+
+/* COLLECTION */
+.collection { background: var(--bg); padding: 10rem 6vw; }
+.collection-head { text-align: center; margin-bottom: 6rem; }
+.collection-head .scene-label { justify-content: center; }
+.collection-head .scene-label::before { display: none; }
+.collection-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px,6vw,90px); font-weight: 300; color: var(--cream);
+}
+.collection-title em { font-style: italic; color: var(--gold); }
+.col-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; max-width: 1300px; margin: 0 auto; }
+.col-card { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 2px; cursor: pointer; }
+.col-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+.col-card:hover img { transform: scale(1.06); }
+.col-card-overlay {
+  position: absolute; inset: 0; padding: 2rem;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: linear-gradient(to top, rgba(10,9,8,0.9), transparent 55%);
+}
+.col-cat { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.col-name { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--cream); }
+
+/* CTA final */
+.final {
+  height: 100vh; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.final-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.final-tint { position: absolute; inset: 0; background: rgba(10,9,8,0.55); }
+.final-content { position: relative; z-index: 5; padding: 2rem; }
+.final-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px,8vw,140px); font-weight: 300; line-height: 0.95; color: var(--cream);
+}
+.final-title em { font-style: italic; color: var(--gold); }
+.final-sub { font-size: 14px; color: var(--cream); letter-spacing: 0.1em; margin: 2rem 0 3rem; opacity: 0.85; }
+.btns { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 44px; font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; text-decoration: none; transition: all 0.4s;
+}
+.btn-gold { background: var(--gold); color: var(--bg); }
+.btn-gold:hover { background: var(--sand); transform: translateY(-2px); }
+.btn-ghost { border: 1px solid rgba(237,230,216,0.4); color: var(--cream); }
+.btn-ghost:hover { border-color: var(--cream); }
+
+footer {
+  padding: 3rem 6vw; background: var(--bg);
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(201,169,110,0.12);
+  font-size: 11px; letter-spacing: 0.1em; color: var(--text-soft);
+}
+footer .logo { font-size: 1.2rem; }
+
+@media (max-width: 800px) {
+  nav { padding: 1.4rem 1.5rem; }
+  .scene-content { padding: 0 8vw; }
+  .text-right { text-align: left; margin-left: 0; }
+  .text-right .scene-title, .text-right .scene-desc { margin-left: 0; margin-right: auto; }
+  .text-right .scene-label { justify-content: flex-start; }
+  .text-right .scene-label::after { display:none; }
+  .text-right .scene-label::before { content:''; display:block; width:40px; height:1px; background:var(--gold); }
+  .collection { padding: 5rem 1.5rem; }
+  .col-grid { grid-template-columns: 1fr; gap: 1rem; }
+  footer { flex-direction: column; gap: 1.2rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav>
+  <div class="logo">GREENLANDIA</div>
+  <a href="#final" class="nav-cta">Заказать</a>
+</nav>
+
+<!-- SCENE 1 - HERO -->
+<section class="scene" id="s1">
+  <div class="scene-bg" style="background-image:url('scene1.png')"></div>
+  <div class="scene-tint" style="background:radial-gradient(ellipse at center,transparent 20%,rgba(10,9,8,0.55) 90%)"></div>
+  <div class="scene-content text-center">
+    <div class="scene-content-inner">
+      <div class="scene-label">Ротанговые качели ручной работы</div>
+      <h1 class="scene-title">Искусство<br><em>покоя</em></h1>
+      <p class="scene-desc" style="margin-left:auto;margin-right:auto;">Премиальные качели-коконы, которые превращают пространство в место тишины</p>
+    </div>
+  </div>
+  <div class="hero-scroll">Листайте</div>
+</section>
+
+<!-- SCENE 2 - TEXTURE -->
+<section class="scene" id="s2">
+  <div class="scene-bg" style="background-image:url('scene2.png')"></div>
+  <div class="scene-tint" style="background:linear-gradient(to right,rgba(10,9,8,0.85) 0%,transparent 60%)"></div>
+  <div class="scene-content">
+    <div class="scene-label">Материал</div>
+    <h2 class="scene-title">Каждое<br>плетение —<br><em>вручную</em></h2>
+    <p class="scene-desc">Натуральный ротанг премиум-класса. Мастер вплетает каждую нить, создавая узор, который служит десятилетиями.</p>
+  </div>
+</section>
+
+<!-- INTERLUDE QUOTE -->
+<section class="interlude">
+  <p class="interlude-text" id="quote1">Качели — это не мебель. Это <em>пауза</em> в вашем дне.</p>
+</section>
+
+<!-- SCENE 3 - SURREAL -->
+<section class="scene" id="s3">
+  <div class="scene-bg" style="background-image:url('scene3.png')"></div>
+  <div class="scene-tint" style="background:linear-gradient(to right,rgba(10,9,8,0.7) 0%,transparent 55%)"></div>
+  <div class="scene-content">
+    <div class="scene-label">Атмосфера</div>
+    <h2 class="scene-title">Где дом<br>встречает<br><em>природу</em></h2>
+    <p class="scene-desc">Качели стирают границу между интерьером и миром снаружи. Дома — но будто в лесу.</p>
+  </div>
+</section>
+
+<!-- SCENE 4 - INTERIOR -->
+<section class="scene" id="s4">
+  <div class="scene-bg" style="background-image:url('scene4.png')"></div>
+  <div class="scene-tint" style="background:linear-gradient(to left,rgba(10,9,8,0.7) 0%,transparent 55%)"></div>
+  <div class="scene-content text-right">
+    <div class="scene-label">Пространство</div>
+    <h2 class="scene-title">Центр<br>любой<br><em>комнаты</em></h2>
+    <p class="scene-desc">Минимализм и тепло. Качели становятся акцентом, к которому хочется возвращаться каждый день.</p>
+  </div>
+</section>
+
+<!-- INTERLUDE QUOTE 2 -->
+<section class="interlude">
+  <p class="interlude-text" id="quote2">Кто сказал, что качели только <em>для детей?</em></p>
+</section>
+
+<!-- SCENE 5 - SUNSET -->
+<section class="scene" id="s5">
+  <div class="scene-bg" style="background-image:url('scene5.png')"></div>
+  <div class="scene-tint" style="background:linear-gradient(to top,rgba(10,9,8,0.5) 0%,transparent 50%)"></div>
+  <div class="scene-content">
+    <div class="scene-label">Момент</div>
+    <h2 class="scene-title">Закаты<br>созданы для<br><em>отдыха</em></h2>
+    <p class="scene-desc">Чашка чая, любимая книга и мягкое покачивание. Лучшее завершение дня.</p>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section class="collection" id="collection">
+  <div class="collection-head">
+    <div class="scene-label">Коллекция 2026</div>
+    <h2 class="collection-title">Выберите <em>свою</em></h2>
+  </div>
+  <div class="col-grid">
+    <div class="col-card">
+      <img src="scene1.png" alt="Кокон Classic">
+      <div class="col-card-overlay">
+        <div class="col-cat">Одноместная</div>
+        <div class="col-name">Кокон Classic</div>
+      </div>
+    </div>
+    <div class="col-card">
+      <img src="scene4.png" alt="Дуэт Grande">
+      <div class="col-card-overlay">
+        <div class="col-cat">Двухместная</div>
+        <div class="col-name">Дуэт Grande</div>
+      </div>
+    </div>
+    <div class="col-card">
+      <img src="scene6.png" alt="Royal Sunset">
+      <div class="col-card-overlay">
+        <div class="col-cat">Премиум</div>
+        <div class="col-name">Royal Sunset</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="final">
+  <div class="final-bg" style="background-image:url('scene6.png')"></div>
+  <div class="final-tint"></div>
+  <div class="final-content">
+    <h2 class="final-title">Ваш уголок<br><em>покоя</em></h2>
+    <p class="final-sub">Доставка по всему Кыргызстану · Гарантия 2 года</p>
+    <div class="btns">
+      <a href="https://wa.me/996700000000" target="_blank" class="btn btn-gold">Написать в WhatsApp</a>
+      <a href="https://instagram.com/greenlandia_e" target="_blank" class="btn btn-ghost">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">GREENLANDIA</div>
+  <div>© 2026 · Бишкек, Кыргызстан 🇰🇬</div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Progress bar
+gsap.to('#progress', {
+  width: '100%', ease: 'none',
+  scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+});
+
+// Parallax on each scene bg (Ken Burns + scroll)
+document.querySelectorAll('.scene').forEach(scene => {
+  const bg = scene.querySelector('.scene-bg');
+  gsap.fromTo(bg, { yPercent: -8, scale: 1.12 }, {
+    yPercent: 8, scale: 1.12, ease: 'none',
+    scrollTrigger: { trigger: scene, start: 'top bottom', end: 'bottom top', scrub: true }
+  });
+});
+
+// Scene content reveal
+document.querySelectorAll('.scene-content').forEach(content => {
+  const label = content.querySelector('.scene-label');
+  const title = content.querySelector('.scene-title');
+  const desc = content.querySelector('.scene-desc');
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: content.closest('.scene'), start: 'top 60%', toggleActions: 'play none none reverse' }
+  });
+  if (label) tl.from(label, { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' });
+  if (title) tl.from(title, { y: 50, opacity: 0, duration: 1, ease: 'power3.out' }, '-=0.5');
+  if (desc) tl.from(desc, { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+});
+
+// Word-by-word reveal for interludes
+document.querySelectorAll('.interlude-text').forEach(el => {
+  const html = el.innerHTML;
+  // wrap words but keep <em>
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  function wrapWords(node) {
+    const out = [];
+    node.childNodes.forEach(child => {
+      if (child.nodeType === 3) {
+        child.textContent.split(/(\s+)/).forEach(w => {
+          if (w.trim()) { const s = document.createElement('span'); s.className='word'; s.textContent=w; out.push(s); }
+          else if (w) out.push(document.createTextNode(w));
+        });
+      } else {
+        const em = document.createElement(child.tagName);
+        em.className = child.className;
+        child.textContent.split(/(\s+)/).forEach(w => {
+          if (w.trim()) { const s = document.createElement('span'); s.className='word'; s.textContent=w; em.appendChild(s); }
+          else if (w) em.appendChild(document.createTextNode(w));
+        });
+        out.push(em);
+      }
+    });
+    return out;
+  }
+  el.innerHTML = '';
+  wrapWords(temp).forEach(n => el.appendChild(n));
+
+  gsap.to(el.querySelectorAll('.word'), {
+    opacity: 1, stagger: 0.08, ease: 'none',
+    scrollTrigger: { trigger: el, start: 'top 75%', end: 'bottom 55%', scrub: 0.5 }
+  });
+});
+
+// Collection cards stagger
+gsap.from('.col-card', {
+  y: 80, opacity: 0, duration: 1, stagger: 0.15, ease: 'power3.out',
+  scrollTrigger: { trigger: '.col-grid', start: 'top 75%' }
+});
+
+// Collection title
+gsap.from('.collection-head', {
+  y: 40, opacity: 0, duration: 1, ease: 'power3.out',
+  scrollTrigger: { trigger: '.collection-head', start: 'top 80%' }
+});
+
+// Final reveal
+gsap.from('.final-content > *', {
+  y: 50, opacity: 0, duration: 1, stagger: 0.15, ease: 'power3.out',
+  scrollTrigger: { trigger: '.final', start: 'top 60%' }
+});
+</script>
+</body>
+</html>
